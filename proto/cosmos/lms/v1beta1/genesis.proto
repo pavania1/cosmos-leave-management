@@ -1,0 +1,21 @@
+syntax = "proto3";
+package lms.v1beta1;
+import "proto/cosmos/lms/v1beta1/tx.proto";
+option go_package="x/lms/types";
+
+//import "cosmos/auth/v1beta1/auth.proto";
+//import "amino/amino.proto";
+
+// option go_package = "github.com/cosmos/cosmos-sdk/x/auth/types";
+
+message GenesisState {
+  // params defines all the parameters of the module.
+  //Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
+  repeated Student student=1 ;
+  repeated AcceptLeaveRequest acceptleaverequest=2 ;
+  repeated ApplyLeaveRequest applyleaverequest=3 ;
+  repeated RegisterAdminRequest registeradminrequest=4 ;
+
+  // accounts are the accounts present at genesis.
+  //repeated google.protobuf.Any accounts = 2;
+}
