@@ -1,0 +1,56 @@
+syntax="proto3";
+package lms.v1beta1;
+import "cosmos/lms/v1beta1/tx.proto";
+option go_package="x/lms/types";
+message GetLeaveRequest{
+
+}
+// message GetLeaveResponse{
+//     repeated Leave leave=1;
+
+// }
+ message GetAdminRequest{
+
+}
+message GetAdminResponse{
+    repeated Admin admin=1;
+}
+message GetstudentsRequest{
+
+}
+message GetstudentsResponse{
+    repeated Student students=1;
+}
+message GetLeaveReq{
+
+}
+message GetLeaveRequestResponse{
+    repeated GetLeaveRequest leaverequest=1;
+}
+ message GetLeaveApproveRequest{
+
+}
+message GetLeaveApproveResponse{
+    repeated GetLeaveRequest Getleaverequest=1;
+}
+message GetRegisterAdminRequest{
+
+}
+message GetRegisterAdminResponse{
+    repeated GetAdminRequest GetAdminrequest=1;
+}
+
+service Query {
+    // GetRegisterAdmin adds a new admin
+    rpc GetAdmin(GetAdminRequest) returns (GetAdminResponse){};
+    
+    // GetStudent adds new student
+    rpc GetStudent(GetstudentsRequest) returns (GetstudentsResponse){};
+    
+    // GetLeave request a new leave
+    rpc GetLeave(GetLeaveRequest) returns (GetLeaveRequestResponse){};
+    
+    // AcceptLeave accept or reject a leave
+    rpc GetAcceptLeave(GetLeaveApproveRequest) returns (GetLeaveApproveResponse){};
+    //rpc Leave(LeaveRequest) returns (LeaveResponse){};
+}

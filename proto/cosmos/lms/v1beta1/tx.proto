@@ -1,6 +1,8 @@
 syntax="proto3";
 package lms.v1beta1;
 import "google/protobuf/timestamp.proto";
+import "gogoproto/gogo.proto";
+
 option go_package="x/lms/types";
 service Msg {
     // RegisterAdmin adds a new admin
@@ -14,6 +16,7 @@ service Msg {
     
     // AcceptLeave accept or reject a leave
     rpc AcceptLeave(AcceptLeaveRequest) returns (AcceptLeaveResponse){};
+    //rpc Leave(LeaveRequest) returns (LeaveResponse){};
 }
 
 message RegisterAdminRequest {
@@ -42,9 +45,9 @@ message ApplyLeaveRequest {
     
     string reason = 2;
     
-    google.protobuf.Timestamp from = 3;
+    google.protobuf.Timestamp from = 3 [(gogoproto.stdtime)=true];
     
-    google.protobuf.Timestamp to = 4;
+    google.protobuf.Timestamp to = 4 [(gogoproto.stdtime)=true];
 }
 
 message ApplyLeaveResponse {
@@ -81,4 +84,14 @@ message Student {
     
     // id is a unique student id.
     string id = 3;
+}
+message Admin{
+    string address=1;
+    string name=2;
+    string id=3;
+}
+message Leave{
+    string date=1;
+    string reason=2;
+    string name=3;
 }

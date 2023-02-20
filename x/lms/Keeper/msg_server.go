@@ -6,6 +6,12 @@ import (
 	"github.com/pavania1/cosmos-LMS/x/lms/types"
 )
 
+func NewMsgServerImpl(k Keeper) types.MsgServer {
+	return &msgServer{
+		Keeper: k,
+	}
+}
+
 var _ types.MsgServer = msgServer{}
 
 type msgServer struct {
@@ -13,8 +19,16 @@ type msgServer struct {
 	types.UnimplementedMsgServer
 }
 
-func (k msgServer) AddStudent(context.Context, *types.AddStudentRequest) (*types.AddStudentResponse, error) {
+func (k msgServer) AddStudent(goCtx context.Context, req *types.AddStudentRequest) (*types.AddStudentResponse, error) {
+	// if k.students!=req.Students{
+	// 	return nil, errors.Wrapf(k.AddStudent,)
+	// }
+	// if err != nil {
+	// 	return nil, err
+	// }
+
 	return &types.AddStudentResponse{}, nil
+
 }
 func (k msgServer) RegisterAdmin(context.Context, *types.RegisterAdminRequest) (*types.RegisterAdminResponse, error) {
 	return &types.RegisterAdminResponse{}, nil

@@ -1,6 +1,6 @@
 syntax = "proto3";
 package lms.v1beta1;
-import "proto/cosmos/lms/v1beta1/tx.proto";
+import "cosmos/lms/v1beta1/tx.proto";
 option go_package="x/lms/types";
 
 //import "cosmos/auth/v1beta1/auth.proto";
@@ -15,6 +15,8 @@ message GenesisState {
   repeated AcceptLeaveRequest acceptleaverequest=2 ;
   repeated ApplyLeaveRequest applyleaverequest=3 ;
   repeated RegisterAdminRequest registeradminrequest=4 ;
+  //repeated Leave leave=2;
+  repeated Admin admin=5;
 
   // accounts are the accounts present at genesis.
   //repeated google.protobuf.Any accounts = 2;

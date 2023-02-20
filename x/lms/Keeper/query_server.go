@@ -6,7 +6,7 @@ import (
 	"github.com/pavania1/cosmos-LMS/x/lms/types"
 )
 
-var _ types.QueryServer = queryServer{}
+var _ types.QueryServer = &queryServer{}
 
 type queryServer struct {
 	Keeper
@@ -21,7 +21,7 @@ func (k queryServer) GetStudent(context.Context, *types.GetstudentsRequest) (*ty
 //	return &types.GetRegisterAdminResponse{}, nil
 //}
 
-func (k queryServer) ApplyLeave(context.Context, *types.GetLeaveRequestRequest) (*types.GetLeaveRequestResponse, error) {
+func (k queryServer) ApplyLeave(context.Context, *types.GetLeaveRequest) (*types.GetLeaveRequestResponse, error) {
 	return &types.GetLeaveRequestResponse{}, nil
 }
 
