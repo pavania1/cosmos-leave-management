@@ -21,10 +21,10 @@ service Msg {
 
 message RegisterAdminRequest {
     // address is the account address of the admin.
-    string address = 1;
+    string Address = 1;
     
     // name is the admin name
-    string name = 2;
+    string Name = 2;
 }
 
 message RegisterAdminResponse{}
@@ -32,9 +32,12 @@ message RegisterAdminResponse{}
 message AddStudentRequest {
     // admin is the account address of the admin
     string admin = 1;
+    string Address=2;
+    string Id=3;
+    string Name=4;
     
     // students is the list of Student.
-    repeated Student students = 2;
+    //repeated Student students = 2;
 }
 
 message AddStudentResponse{}

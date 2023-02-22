@@ -4,7 +4,7 @@ package types
 
 func NewGenesisState(responses []*AcceptLeaveRequest) *GenesisState {
 	return &GenesisState{
-		Admin: responses,
+		
 	}
 }
 

@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/pavania1/cosmos-LMS/x/lms/types"
+	"github.com/pavania1/cosmos-leave-management/x/lms/types"
 )
 
 var _ types.QueryServer = &queryServer{}
