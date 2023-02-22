@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/pavania1/cosmos-leave-management/x/lms/types"
 )
 
@@ -26,16 +27,22 @@ func (k msgServer) AddStudent(goCtx context.Context, req *types.AddStudentReques
 	// if err != nil {
 	// 	return nil, err
 	// }
-
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	k.Keeper.AddStudent(ctx, req)
 	return &types.AddStudentResponse{}, nil
 
 }
-func (k msgServer) RegisterAdmin(context.Context, *types.RegisterAdminRequest) (*types.RegisterAdminResponse, error) {
+func (k msgServer) RegisterAdmin(goCtx context.Context, req *types.RegisterAdminRequest) (*types.RegisterAdminResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	k.Keeper.AdminRegister(ctx, req)
 	return &types.RegisterAdminResponse{}, nil
 }
-func (k msgServer) ApplyLeave(context.Context, *types.ApplyLeaveRequest) (*types.ApplyLeaveResponse, error) {
+func (k msgServer) ApplyLeave(goCtx context.Context, req *types.ApplyLeaveRequest) (*types.ApplyLeaveResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	k.Keeper.ApplyLeave(ctx, req)
 	return &types.ApplyLeaveResponse{}, nil
 }
 func (k msgServer) AcceptLeave(context.Context, *types.AcceptLeaveRequest) (*types.AcceptLeaveResponse, error) {
+
 	return &types.AcceptLeaveResponse{}, nil
 }

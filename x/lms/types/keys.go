@@ -13,13 +13,13 @@ var (
 	LeaveKey   = []byte{0x03}
 )
 
-func studentStoreKey(studentid string) []byte {
+func StudentStoreKey(studentid string) []byte {
 	key := make([]byte, len(StudentKey)+len(studentid))
 	copy(key, StudentKey)
 	copy(key[len(StudentKey):], studentid)
 	return key
 }
-func adminstoreKey(admin string) []byte {
+func AdminstoreKey(admin string) []byte {
 	key := make([]byte, len(AdminKey)+len(admin))
 	copy(key, AdminKey)
 	copy(key[len(AdminKey):], []byte(admin))
