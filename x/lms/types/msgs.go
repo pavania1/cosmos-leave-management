@@ -1,6 +1,8 @@
 package types
 
 import (
+	"errors"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -27,6 +29,15 @@ func (msg *AddStudentRequest) GetSigners() []sdk.AccAddress {
 func (msg *AddStudentRequest) ValidateBasic() error {
 	if _, err := sdk.AccAddressFromBech32(""); err != nil {
 		return sdkerrors.Wrap(err, "invalid authority address")
+	} else if msg.Name == "" {
+		return errors.New("name cant be null")
+	} else if msg.Admin == "" {
+		return errors.New("Admin cant be null")
+	} else if msg.Address == "" {
+		return errors.New("address cant be null")
+
+	} else if msg.Id == "" {
+		return errors.New("Id cant be null")
 	}
 	return nil
 }
@@ -44,6 +55,12 @@ func (msg AcceptLeaveRequest) GetSigners() []sdk.AccAddress {
 func (msg AcceptLeaveRequest) ValidateBasic() error {
 	if _, err := sdk.AccAddressFromBech32(""); err != nil {
 		return sdkerrors.Wrap(err, "invalid authority address")
+	} else if msg.Admin == "" {
+		return errors.New("name cant be null")
+	} else if msg.LeaveId == 0 {
+		return errors.New("Leave id cant be null")
+	} else if msg.Status == 0 {
+		return errors.New("status must be specified")
 	}
 	return nil
 }
@@ -60,6 +77,14 @@ func (msg *ApplyLeaveRequest) GetSigners() []sdk.AccAddress {
 func (msg *ApplyLeaveRequest) ValidateBasic() error {
 	if _, err := sdk.AccAddressFromBech32(""); err != nil {
 		return sdkerrors.Wrap(err, "invalid authority address")
+	} else if msg.Address == "" {
+		return errors.New("address cant be null")
+	} else if msg.Reason == "" {
+		return errors.New("Reason cant be null")
+	} else if msg.From == nil {
+		return errors.New("form date is must not be nill")
+	} else if msg.To == nil {
+		return errors.New("to date is must be mentioned")
 	}
 	return nil
 }
@@ -76,6 +101,10 @@ func (msg *RegisterAdminRequest) GetSigners() []sdk.AccAddress {
 func (msg *RegisterAdminRequest) ValidateBasic() error {
 	if _, err := sdk.AccAddressFromBech32(""); err != nil {
 		return sdkerrors.Wrap(err, "invalid authority address")
+	} else if msg.Name == "" {
+		return errors.New("name cant be null")
+	} else if msg.Address == "" {
+		return errors.New("address cant be null")
 	}
 	return nil
 }

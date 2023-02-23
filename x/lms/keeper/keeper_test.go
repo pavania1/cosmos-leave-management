@@ -180,6 +180,7 @@ func (s *TestSuite) TestRegisterAdmin() {
 		Name    string
 		Address string
 	}{
+
 		{"Pavani", "234"},
 		{"xyz", "567"},
 	}
@@ -197,7 +198,7 @@ func (s *TestSuite) TestRegisterAdmin() {
 	}{
 		{"Pavani", "234", true},
 		{"xyz", "567", true},
-		{"yashhh", "123", true},
+		{"yashhh", "123", false},
 	}
 	for _, test := range Ftests {
 		check := s.stdntKeeper.CheckAdminregister(s.ctx, test.Address)
@@ -215,6 +216,31 @@ func (s *TestSuite) TestRegisterAdmin() {
 
 }
 
+// func (s *TestSuite) TestApplyLeave() {
+// 	tests := []struct {
+// 		Name    string
+// 		Address string
+// 		Reason string
+// 		From time.Time
+// 		To time.Time
+
+// 	}{
+// 		{"Pavani", "234","cold",2023-2-2,true},
+// 		{"xyz", "567","fever",2023-2-2,false},
+// 		{"var","123","pain",2023-2-2,true},
+// 	}
+// 	for _, test := range tests {
+// 		err := s.stdntKeeper.ApplyLeave(s.ctx, &types.ApplyleaveRequest{
+// 			Address: test.Address,
+// 			Name:    test.Name,
+// 			Reason: test.Address,
+// 			From : test.&fromdate
+// 			To: test.&todate
+// 		})
+// 		s.Require().NoError(err)
+// 	}
+//  }
+
 func (s *TestSuite) TestLeave() {
 	dateString := "2023-02-22"
 	fromdate, _ := time.Parse("2023-02-22", dateString)
@@ -229,13 +255,33 @@ func (s *TestSuite) TestLeave() {
 	s.Require().NoError(err)
 }
 
+// func (s *TestSuite) TestAcceptLeave() {
+// 	err := s.stdntKeeper.AcceptLeave(s.ctx, &types.AcceptLeaveRequest{
+// 		Admin:   "Pavani",
+// 		LeaveId: 123,
+// 		Status:  types.LeaveStatus_STATUS_ACCEPTED,
+// 	})
+// 	s.Require().NoError(err)
+// }
+
 func (s *TestSuite) TestAcceptLeave() {
-	err := s.stdntKeeper.AcceptLeave(s.ctx, &types.AcceptLeaveRequest{
-		Admin:   "Pavani",
-		LeaveId: 123,
-		Status:  types.LeaveStatus_STATUS_ACCEPTED,
-	})
-	s.Require().NoError(err)
+	tests := []struct {
+		Admin   string
+		LeaveId uint64
+		Status  types.LeaveStatus
+	}{
+		{"pavani", 123, types.LeaveStatus_STATUS_UNDEFINED},
+		{"pav", 12, types.LeaveStatus_STATUS_ACCEPTED},
+		{"p", 23, types.LeaveStatus_STATUS_REJECTED},
+	}
+	for _, test := range tests {
+		err := s.stdntKeeper.AcceptLeave(s.ctx, &types.AcceptLeaveRequest{
+			Admin:   test.Admin,
+			LeaveId: test.LeaveId,
+			Status:  test.Status,
+		})
+		s.Require().NoError(err)
+	}
 }
 
 // func (s *TestSuite) TestAddstudent() {
