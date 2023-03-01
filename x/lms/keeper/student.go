@@ -10,23 +10,12 @@ import (
 	//"google.golang.org/genproto/googleapis/actions/sdk/v2"
 )
 
-// type StudentKeeper interface {
-// 	Addstudent(ctx sdk.Context, req *types.AddStudentRequest) error
-// 	AdminRegister(ctx sdk.Context, req *types.RegisterAdminRequest) error
-// 	AcceptLeave(ctx sdk.Context, req *types.AcceptLeaveRequest) error
-// }
-
-//var _ StudentKeeper = (*LeaveStudentKeeper)(nil)
-
-// type LeaveStudentKeeper struct {
-// 	cdc      codec.BinaryCodec
-// 	storeKey storetypes.StoreKey
-//}
+//NewKeeper
 
 func NewKeeper(cdc codec.BinaryCodec, storekey storetypes.StoreKey) Keeper {
-	// if _, err := sdk.AccAddressFromBech32("h"); err != nil {
-	// 	panic(fmt.Errorf("invalid  authority address: %w", err))
-	// }
+	if _, err := sdk.AccAddressFromBech32("h"); err != nil {
+		panic(fmt.Errorf("invalid  authority address: %w", err))
+	}
 	return Keeper{
 		cdc:      cdc,
 		storeKey: storekey,

@@ -6,16 +6,16 @@ import "gogoproto/gogo.proto";
 option go_package="x/lms/types";
 service Msg {
     // RegisterAdmin adds a new admin
-    rpc RegisterAdmin(RegisterAdminRequest) returns (RegisterAdminResponse){};
+    rpc MsgRegisterAdmin(RegisterAdminRequest) returns (RegisterAdminResponse){};
     
     // AddStudent adds new student
-    rpc AddStudent(AddStudentRequest) returns (AddStudentResponse){};
+    rpc MsgAddStudent(AddStudentRequest) returns (AddStudentResponse){};
     
     // ApplyLeave request a new leave
-    rpc ApplyLeave(ApplyLeaveRequest) returns (ApplyLeaveResponse){};
+    rpc MsgApplyLeave(ApplyLeaveRequest) returns (ApplyLeaveResponse){};
     
     // AcceptLeave accept or reject a leave
-    rpc AcceptLeave(AcceptLeaveRequest) returns (AcceptLeaveResponse){};
+    rpc MsgAcceptLeave(AcceptLeaveRequest) returns (AcceptLeaveResponse){};
     //rpc Leave(LeaveRequest) returns (LeaveResponse){};
 }
 

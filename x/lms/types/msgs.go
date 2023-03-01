@@ -2,6 +2,7 @@ package types
 
 import (
 	"errors"
+	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -13,6 +14,52 @@ var (
 	_ sdk.Msg = &ApplyLeaveRequest{}
 	_ sdk.Msg = &RegisterAdminRequest{}
 )
+
+func NewAddStudentRequest(Admin string, name string, address string, id string) *AddStudentRequest {
+	return &AddStudentRequest{
+		Admin:   Admin,
+		Address: address,
+		Name:    name,
+		Id:      id,
+	}
+}
+func NewRegisterAdminRequest(Address string, name string) *RegisterAdminRequest {
+	return &RegisterAdminRequest{
+		Address: Address,
+		Name:    name,
+	}
+}
+func NewApplyLeaveRequest(Address string, Reason string, From *time.Time, To *time.Time) *ApplyLeaveRequest {
+	return &ApplyLeaveRequest{
+		Address: Address,
+		Reason:  Reason,
+		From:    From,
+		To:      To,
+	}
+}
+func NewAcceptLeaveRequest(Admin string, LeaveId uint64, Status LeaveStatus) *AcceptLeaveRequest {
+	return &AcceptLeaveRequest{
+		Admin:   Admin,
+		LeaveId: LeaveId,
+		Status:  Status,
+	}
+}
+func NewGetStudentRequest(Id string, Address string) *GetstudentRequest {
+	return &GetstudentRequest{
+		Id:      Id,
+		Address: Address,
+	}
+}
+
+func NewGetAdminRequest(name string) *GetRegisterAdminRequest {
+	return &GetRegisterAdminRequest{
+		Name: name,
+	}
+
+}
+func NewGetStudentsRequest() *GetstudentsRequest {
+	return &GetstudentsRequest{}
+}
 
 // GetSignBytes implements the LegacyMsg interface.
 func (msg AddStudentRequest) GetSignBytes() []byte {

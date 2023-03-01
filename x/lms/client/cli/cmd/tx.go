@@ -16,28 +16,124 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
+	"strconv"
+	"time"
 
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/pavania1/cosmos-leave-management/x/lms/types"
 	"github.com/spf13/cobra"
 )
 
-// txCmd represents the tx command
-var txCmd = &cobra.Command{
-	Use:   "tx",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("tx called")
-	},
+func GetTxCmd() *cobra.Command {
+	studentTxCmd := &cobra.Command{
+		Use:   types.ModuleName,
+		Short: "|lms|",
+		Long:  "lms module commands",
+		RunE:  client.ValidateCmd,
+	}
+	studentTxCmd.AddCommand(
+		RegisterAdminCmd(),
+		AddStudentCmd(),
+		AcceptLeaveCmd(),
+		ApplyLeaveCmd(),
+	)
+	return studentTxCmd
 }
+func AddStudentCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "tx",
+		Short: "A brief description of your command",
+		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
 
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				panic(err)
+			}
+			admin := args[0]
+			address := args[1]
+			name := args[2]
+			id := args[3]
+
+			msgClient := types.NewAddStudentRequest(admin, address, name, id)
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
+		},
+	}
+	return cmd
+}
+func RegisterAdminCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "tx",
+		Short: "A brief description of your command",
+		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
+
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				panic(err)
+			}
+			Address := args[0]
+			name := args[1]
+			msgClient := types.NewRegisterAdminRequest(Address, name)
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
+		},
+	}
+	return cmd
+}
+func AcceptLeaveCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "tx",
+		Short: "A brief description of your command",
+		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
+
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				panic(err)
+			}
+			Admin := args[0]
+			LeaveId := args[1]
+			leaveId, err := strconv.ParseUint(LeaveId, 10, 64)
+			if err != nil {
+				return err
+			}
+			msgClient := types.NewAcceptLeaveRequest(Admin, leaveId, types.LeaveStatus_STATUS_ACCEPTED)
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
+		},
+	}
+	return cmd
+}
+func ApplyLeaveCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "tx",
+		Short: "A brief description of your command",
+		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
+
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				panic(err)
+			}
+			dateString := "2023-02-22"
+			fromdate, _ := time.Parse("2023-02-22", dateString)
+			todate, _ := time.Parse("2023-02-22", "2023-02-24")
+			Address := args[0]
+			Reason := args[1]
+			From := &fromdate
+			To := &todate
+			msgClient := types.NewApplyLeaveRequest(Address, Reason, From, To)
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
+		},
+	}
+	return cmd
+}
 func init() {
-	rootCmd.AddCommand(txCmd)
+	//rootCmd.AddCommand(txCmd)
+	rootCmd.AddCommand(AddStudentCmd())
+	rootCmd.AddCommand(RegisterAdminCmd())
+	rootCmd.AddCommand(AcceptLeaveCmd())
+	rootCmd.AddCommand(ApplyLeaveCmd())
 
 	// Here you will define your flags and configuration settings.
 

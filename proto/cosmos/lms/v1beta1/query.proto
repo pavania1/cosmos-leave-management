@@ -1,6 +1,7 @@
 syntax="proto3";
 package lms.v1beta1;
 import "cosmos/lms/v1beta1/tx.proto";
+import "google/api/annotations.proto" ;  
 option go_package="x/lms/types";
 message GetLeaveRequest{
 
@@ -9,17 +10,27 @@ message GetLeaveRequest{
 //     repeated Leave leave=1;
 
 // }
- message GetAdminRequest{
 
-}
-message GetAdminResponse{
-    repeated Admin admin=1;
-}
+// message GetAdminRequest{
+
+// }
+// message GetAdminResponse{
+//      Admin admin=1;
+//      //Address address=2;
+// }
 message GetstudentsRequest{
 
 }
 message GetstudentsResponse{
-    repeated Student students=1;
+    repeated Student student=1;
+}
+
+message GetstudentRequest{
+    string id=1;
+    string address=2;
+}
+message GetstudentResponse{
+    Student student=1;
 }
 message GetLeaveReq{
 
@@ -34,23 +45,39 @@ message GetLeaveApproveResponse{
     repeated GetLeaveRequest Getleaverequest=1;
 }
 message GetRegisterAdminRequest{
-
+    string name=1;
 }
 message GetRegisterAdminResponse{
-    repeated GetAdminRequest GetAdminrequest=1;
+    //repeated GetAdminRequest GetAdminrequest=1;
+    Admin admin=1;
+    
 }
+// message GetApplyLeaveRequest{
+
+// }
+// message GetApplyLeaveResponse{
+
+// }
 
 service Query {
-    // GetRegisterAdmin adds a new admin
-    rpc GetAdmin(GetAdminRequest) returns (GetAdminResponse){};
     
+    rpc GetAdmin(GetRegisterAdminRequest)returns (GetRegisterAdminResponse){
+        option (google.api.http).get   = "/cosmos/lms/v1beta1/adminaddress";
+    };
     // GetStudent adds new student
-    rpc GetStudent(GetstudentsRequest) returns (GetstudentsResponse){};
-    
+    rpc GetStudents(GetstudentsRequest) returns (GetstudentsResponse){
+        option (google.api.http).get   = "/cosmos/lms/v1beta1/adminaddress";
+    };
+    rpc GetStudent(GetstudentRequest)returns(GetstudentResponse){
+        option (google.api.http).get   = "/cosmos/lms/v1beta1/studentaddress";
+    };
     // GetLeave request a new leave
-    rpc GetLeave(GetLeaveRequest) returns (GetLeaveRequestResponse){};
-    
-    // AcceptLeave accept or reject a leave
-    rpc GetAcceptLeave(GetLeaveApproveRequest) returns (GetLeaveApproveResponse){};
+    rpc GetLeave(GetLeaveRequest) returns (GetLeaveRequestResponse){
+        option (google.api.http).get   = "/cosmos/lms/v1beta1/studenaddress";
+    };
+    rpc GetAcceptLeave(GetLeaveApproveRequest) returns (GetLeaveApproveResponse){
+        option (google.api.http).get   = "/cosmos/lms/v1beta1/studentaddress";
+    };
     //rpc Leave(LeaveRequest) returns (LeaveResponse){};
+    // rpc GetApplyLeave(GetApplyLeaveRequest) returns (GetApplyLeaveResponse){};
 }

@@ -7,20 +7,20 @@ import (
 	"github.com/pavania1/cosmos-leave-management/x/lms/types"
 )
 
-func NewMsgServerImpl(k Keeper) types.MsgServer {
-	return &msgServer{
-		Keeper: k,
-	}
-}
+// func NewMsgServerImpl(k Keeper) types.MsgServer {
+// 	return &msgServer{
+// 		Keeper: k,
+// 	}
+// }
 
-var _ types.MsgServer = msgServer{}
+var _ types.MsgServer = Keeper{}
 
-type msgServer struct {
-	Keeper
-	types.UnimplementedMsgServer
-}
+// type msgServer struct {
+// 	Keeper
+// 	types.UnimplementedMsgServer
+// }
 
-func (k msgServer) AddStudent(goCtx context.Context, req *types.AddStudentRequest) (*types.AddStudentResponse, error) {
+func (k Keeper) MsgAddStudent(goCtx context.Context, req *types.AddStudentRequest) (*types.AddStudentResponse, error) {
 	// if k.students!=req.Students{
 	// 	return nil, errors.Wrapf(k.AddStudent,)
 	// }
@@ -28,21 +28,21 @@ func (k msgServer) AddStudent(goCtx context.Context, req *types.AddStudentReques
 	// 	return nil, err
 	// }
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	k.Keeper.AddStudent(ctx, req)
+	k.AddStudent(ctx, req)
 	return &types.AddStudentResponse{}, nil
 
 }
-func (k msgServer) RegisterAdmin(goCtx context.Context, req *types.RegisterAdminRequest) (*types.RegisterAdminResponse, error) {
+func (k Keeper) MsgRegisterAdmin(goCtx context.Context, req *types.RegisterAdminRequest) (*types.RegisterAdminResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	k.Keeper.AdminRegister(ctx, req)
+	k.AdminRegister(ctx, req)
 	return &types.RegisterAdminResponse{}, nil
 }
-func (k msgServer) ApplyLeave(goCtx context.Context, req *types.ApplyLeaveRequest) (*types.ApplyLeaveResponse, error) {
+func (k Keeper) MsgApplyLeave(goCtx context.Context, req *types.ApplyLeaveRequest) (*types.ApplyLeaveResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	k.Keeper.ApplyLeave(ctx, req)
+	k.ApplyLeave(ctx, req)
 	return &types.ApplyLeaveResponse{}, nil
 }
-func (k msgServer) AcceptLeave(context.Context, *types.AcceptLeaveRequest) (*types.AcceptLeaveResponse, error) {
+func (k Keeper) MsgAcceptLeave(context.Context, *types.AcceptLeaveRequest) (*types.AcceptLeaveResponse, error) {
 
 	return &types.AcceptLeaveResponse{}, nil
 }

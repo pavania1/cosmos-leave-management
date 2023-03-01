@@ -16,28 +16,168 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/pavania1/cosmos-leave-management/x/lms/types"
 	"github.com/spf13/cobra"
 )
 
 // queryCmd represents the query command
-var queryCmd = &cobra.Command{
-	Use:   "query",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+// var queryCmd = &cobra.Command{
+// 	Use:   "query",
+// 	Short: "A brief description of your command",
+// 	Long: `A longer description that spans multiple lines and likely contains examples
+// and usage of using your command. For example:
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("query called")
-	},
+// Cobra is a CLI library for Go that empowers applications.
+// This application is a tool to generate the needed files
+// to quickly create a Cobra application.`,
+// 	Run: func(cmd *cobra.Command, args []string) {
+// 		fmt.Println("query called")
+// 	},
+// }
+
+func GetQueryCmd() *cobra.Command {
+	studentqueryCmd := &cobra.Command{
+		Use:   "query",
+		Short: "A brief description of your command",
+		Long: `A longer description that spans multiple lines and likely contains examples
+		and usage of using your command.`,
+		RunE: client.ValidateCmd,
+	}
+	studentqueryCmd.AddCommand(
+		GetStudentCmd(),
+		GetRegisterAdminCmd(),
+		GetStudentscmd(),
+	)
+	return studentqueryCmd
+}
+
+func GetStudentCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "query",
+		Short: "A brief description of your command",
+		Long: `A longer description that spans multiple lines and likely contains examples
+		and usage of using your command.`,
+
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientQueryContext(cmd)
+			if err != nil {
+				panic(err)
+			}
+			student := types.GetstudentRequest{
+				Id:      args[0],
+				Address: args[1],
+			}
+
+			//queryClient := types.NewGetStudentRequest(Id, Address)
+
+			queryClient := types.NewQueryClient(clientCtx)
+			res, err := queryClient.GetStudent(cmd.Context(), &student)
+			if err != nil {
+				panic(err)
+			}
+			return clientCtx.PrintProto(res)
+
+		},
+	}
+	return cmd
+}
+func GetStudentscmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "query",
+		Short: "A brief description of your command",
+		Long: `A longer description that spans multiple lines and likely contains examples
+		and usage of using your command.`,
+
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientQueryContext(cmd)
+			if err != nil {
+				panic(err)
+			}
+			queryClient := types.NewQueryClient(clientCtx)
+			res, err := queryClient.GetStudents(cmd.Context(), &types.GetstudentsRequest{})
+			if err != nil {
+				panic(err)
+			}
+			return clientCtx.PrintProto(res)
+		},
+	}
+	return cmd
+}
+func GetRegisterAdminCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "query",
+		Short: "A brief description of your command",
+		Long: `A longer description that spans multiple lines and likely contains examples
+		and usage of using your command.`,
+
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientQueryContext(cmd)
+
+			if err != nil {
+				panic(err)
+			}
+			Admin := types.GetRegisterAdminRequest{
+				Name: args[0],
+			}
+			queryClient := types.NewQueryClient(clientCtx)
+			res, err := queryClient.GetAdmin(cmd.Context(), &Admin)
+			if err != nil {
+				panic(err)
+			}
+			return clientCtx.PrintProto(res)
+		},
+	}
+	return cmd
+}
+func GetAcceptLeaveCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "query",
+		Short: "A brief description of your command",
+		Long: `A longer description that spans multiple lines and likely contains examples
+		and usage of using your command.`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientQueryContext(cmd)
+			if err != nil {
+				panic(err)
+			}
+			queryClient := types.NewQueryClient(clientCtx)
+			res, err := queryClient.GetAcceptLeave(cmd.Context(), &types.GetLeaveApproveRequest{})
+			if err != nil {
+				panic(err)
+			}
+			return clientCtx.PrintProto(res)
+		},
+	}
+	return cmd
+}
+func GetLeaveCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "query",
+		Short: "A brief description of your command",
+		Long: `A longer description that spans multiple lines and likely contains examples
+		and usage of using your command.`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientQueryContext(cmd)
+			if err != nil {
+				panic(err)
+			}
+			queryClient := types.NewQueryClient(clientCtx)
+			res, err := queryClient.GetLeave(cmd.Context(), &types.GetLeaveRequest{})
+			if err != nil {
+				panic(err)
+			}
+			return clientCtx.PrintProto(res)
+		},
+	}
+	return cmd
 }
 
 func init() {
-	rootCmd.AddCommand(queryCmd)
+	//rootCmd.AddCommand(queryCmd)
+	rootCmd.AddCommand(GetStudentCmd())
+	rootCmd.AddCommand(GetRegisterAdminCmd())
+	rootCmd.AddCommand(GetStudentscmd())
 
 	// Here you will define your flags and configuration settings.
 

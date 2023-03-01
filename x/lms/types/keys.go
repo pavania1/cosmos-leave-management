@@ -4,7 +4,7 @@ const (
 	ModuleName = "leavemanagementsystem"
 	StoreKey   = ModuleName
 	// RouterKey    = ModuleName
-	// QuerierRoute = ModuleName
+	QuerierRoute = ModuleName
 )
 
 var (

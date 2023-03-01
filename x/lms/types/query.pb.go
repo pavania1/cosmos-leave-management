@@ -8,6 +8,7 @@ import (
 	fmt "fmt"
 	grpc1 "github.com/gogo/protobuf/grpc"
 	proto "github.com/gogo/protobuf/proto"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -64,86 +65,10 @@ func (m *GetLeaveRequest) XXX_DiscardUnknown() {
 var xxx_messageInfo_GetLeaveRequest proto.InternalMessageInfo
 
 // }
-type GetAdminRequest struct {
-}
-
-func (m *GetAdminRequest) Reset()         { *m = GetAdminRequest{} }
-func (m *GetAdminRequest) String() string { return proto.CompactTextString(m) }
-func (*GetAdminRequest) ProtoMessage()    {}
-func (*GetAdminRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4aaac713669af5ad, []int{1}
-}
-func (m *GetAdminRequest) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *GetAdminRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_GetAdminRequest.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *GetAdminRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAdminRequest.Merge(m, src)
-}
-func (m *GetAdminRequest) XXX_Size() int {
-	return m.Size()
-}
-func (m *GetAdminRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAdminRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetAdminRequest proto.InternalMessageInfo
-
-type GetAdminResponse struct {
-	Admin []*Admin `protobuf:"bytes,1,rep,name=admin,proto3" json:"admin,omitempty"`
-}
-
-func (m *GetAdminResponse) Reset()         { *m = GetAdminResponse{} }
-func (m *GetAdminResponse) String() string { return proto.CompactTextString(m) }
-func (*GetAdminResponse) ProtoMessage()    {}
-func (*GetAdminResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4aaac713669af5ad, []int{2}
-}
-func (m *GetAdminResponse) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *GetAdminResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_GetAdminResponse.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *GetAdminResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAdminResponse.Merge(m, src)
-}
-func (m *GetAdminResponse) XXX_Size() int {
-	return m.Size()
-}
-func (m *GetAdminResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAdminResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetAdminResponse proto.InternalMessageInfo
-
-func (m *GetAdminResponse) GetAdmin() []*Admin {
-	if m != nil {
-		return m.Admin
-	}
-	return nil
-}
-
+// message GetAdminResponse{
+//      Admin admin=1;
+//      //Address address=2;
+// }
 type GetstudentsRequest struct {
 }
 
@@ -151,7 +76,7 @@ func (m *GetstudentsRequest) Reset()         { *m = GetstudentsRequest{} }
 func (m *GetstudentsRequest) String() string { return proto.CompactTextString(m) }
 func (*GetstudentsRequest) ProtoMessage()    {}
 func (*GetstudentsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4aaac713669af5ad, []int{3}
+	return fileDescriptor_4aaac713669af5ad, []int{1}
 }
 func (m *GetstudentsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -181,14 +106,14 @@ func (m *GetstudentsRequest) XXX_DiscardUnknown() {
 var xxx_messageInfo_GetstudentsRequest proto.InternalMessageInfo
 
 type GetstudentsResponse struct {
-	Students []*Student `protobuf:"bytes,1,rep,name=students,proto3" json:"students,omitempty"`
+	Student []*Student `protobuf:"bytes,1,rep,name=student,proto3" json:"student,omitempty"`
 }
 
 func (m *GetstudentsResponse) Reset()         { *m = GetstudentsResponse{} }
 func (m *GetstudentsResponse) String() string { return proto.CompactTextString(m) }
 func (*GetstudentsResponse) ProtoMessage()    {}
 func (*GetstudentsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4aaac713669af5ad, []int{4}
+	return fileDescriptor_4aaac713669af5ad, []int{2}
 }
 func (m *GetstudentsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -217,9 +142,105 @@ func (m *GetstudentsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetstudentsResponse proto.InternalMessageInfo
 
-func (m *GetstudentsResponse) GetStudents() []*Student {
+func (m *GetstudentsResponse) GetStudent() []*Student {
 	if m != nil {
-		return m.Students
+		return m.Student
+	}
+	return nil
+}
+
+type GetstudentRequest struct {
+	Id      string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Address string `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+}
+
+func (m *GetstudentRequest) Reset()         { *m = GetstudentRequest{} }
+func (m *GetstudentRequest) String() string { return proto.CompactTextString(m) }
+func (*GetstudentRequest) ProtoMessage()    {}
+func (*GetstudentRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4aaac713669af5ad, []int{3}
+}
+func (m *GetstudentRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GetstudentRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GetstudentRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GetstudentRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetstudentRequest.Merge(m, src)
+}
+func (m *GetstudentRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *GetstudentRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetstudentRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetstudentRequest proto.InternalMessageInfo
+
+func (m *GetstudentRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *GetstudentRequest) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+type GetstudentResponse struct {
+	Student *Student `protobuf:"bytes,1,opt,name=student,proto3" json:"student,omitempty"`
+}
+
+func (m *GetstudentResponse) Reset()         { *m = GetstudentResponse{} }
+func (m *GetstudentResponse) String() string { return proto.CompactTextString(m) }
+func (*GetstudentResponse) ProtoMessage()    {}
+func (*GetstudentResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4aaac713669af5ad, []int{4}
+}
+func (m *GetstudentResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GetstudentResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GetstudentResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GetstudentResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetstudentResponse.Merge(m, src)
+}
+func (m *GetstudentResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *GetstudentResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetstudentResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetstudentResponse proto.InternalMessageInfo
+
+func (m *GetstudentResponse) GetStudent() *Student {
+	if m != nil {
+		return m.Student
 	}
 	return nil
 }
@@ -385,6 +406,7 @@ func (m *GetLeaveApproveResponse) GetGetleaverequest() []*GetLeaveRequest {
 }
 
 type GetRegisterAdminRequest struct {
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 }
 
 func (m *GetRegisterAdminRequest) Reset()         { *m = GetRegisterAdminRequest{} }
@@ -420,8 +442,16 @@ func (m *GetRegisterAdminRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetRegisterAdminRequest proto.InternalMessageInfo
 
+func (m *GetRegisterAdminRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
 type GetRegisterAdminResponse struct {
-	GetAdminrequest []*GetAdminRequest `protobuf:"bytes,1,rep,name=GetAdminrequest,proto3" json:"GetAdminrequest,omitempty"`
+	//repeated GetAdminRequest GetAdminrequest=1;
+	Admin *Admin `protobuf:"bytes,1,opt,name=admin,proto3" json:"admin,omitempty"`
 }
 
 func (m *GetRegisterAdminResponse) Reset()         { *m = GetRegisterAdminResponse{} }
@@ -457,19 +487,19 @@ func (m *GetRegisterAdminResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetRegisterAdminResponse proto.InternalMessageInfo
 
-func (m *GetRegisterAdminResponse) GetGetAdminrequest() []*GetAdminRequest {
+func (m *GetRegisterAdminResponse) GetAdmin() *Admin {
 	if m != nil {
-		return m.GetAdminrequest
+		return m.Admin
 	}
 	return nil
 }
 
 func init() {
 	proto.RegisterType((*GetLeaveRequest)(nil), "lms.v1beta1.GetLeaveRequest")
-	proto.RegisterType((*GetAdminRequest)(nil), "lms.v1beta1.GetAdminRequest")
-	proto.RegisterType((*GetAdminResponse)(nil), "lms.v1beta1.GetAdminResponse")
 	proto.RegisterType((*GetstudentsRequest)(nil), "lms.v1beta1.GetstudentsRequest")
 	proto.RegisterType((*GetstudentsResponse)(nil), "lms.v1beta1.GetstudentsResponse")
+	proto.RegisterType((*GetstudentRequest)(nil), "lms.v1beta1.GetstudentRequest")
+	proto.RegisterType((*GetstudentResponse)(nil), "lms.v1beta1.GetstudentResponse")
 	proto.RegisterType((*GetLeaveReq)(nil), "lms.v1beta1.GetLeaveReq")
 	proto.RegisterType((*GetLeaveRequestResponse)(nil), "lms.v1beta1.GetLeaveRequestResponse")
 	proto.RegisterType((*GetLeaveApproveRequest)(nil), "lms.v1beta1.GetLeaveApproveRequest")
@@ -481,32 +511,39 @@ func init() {
 func init() { proto.RegisterFile("cosmos/lms/v1beta1/query.proto", fileDescriptor_4aaac713669af5ad) }
 
 var fileDescriptor_4aaac713669af5ad = []byte{
-	// 392 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x93, 0x4f, 0x4f, 0xf2, 0x40,
-	0x10, 0xc6, 0xdb, 0xf7, 0x0d, 0x86, 0x4c, 0xfd, 0xbb, 0x12, 0xc5, 0xaa, 0x95, 0xac, 0x9a, 0x70,
-	0x2a, 0x82, 0x57, 0x0f, 0xe2, 0xc1, 0xc6, 0xc4, 0x83, 0xd4, 0x9b, 0xc6, 0x43, 0x81, 0x89, 0x21,
-	0xa1, 0xb4, 0x74, 0x17, 0x02, 0xdf, 0xc2, 0x8f, 0xe5, 0x91, 0x93, 0xf1, 0x68, 0xe0, 0x8b, 0x98,
-	0xb6, 0xdb, 0x96, 0x56, 0xc0, 0x78, 0x7d, 0xe6, 0x99, 0xdf, 0xb3, 0x3b, 0x3b, 0x0b, 0x5a, 0xcb,
-	0x61, 0xb6, 0xc3, 0x2a, 0x5d, 0x9b, 0x55, 0x86, 0xd5, 0x26, 0x72, 0xab, 0x5a, 0xe9, 0x0f, 0xd0,
-	0x1b, 0xeb, 0xae, 0xe7, 0x70, 0x87, 0x28, 0x5d, 0x9b, 0xe9, 0xa2, 0xa0, 0x1e, 0x2e, 0x30, 0xf3,
-	0x51, 0xe8, 0xa4, 0x3b, 0xb0, 0x65, 0x20, 0xbf, 0x47, 0x6b, 0x88, 0x26, 0xf6, 0x07, 0xc8, 0xb8,
-	0x90, 0xea, 0x6d, 0xbb, 0xd3, 0x8b, 0xa4, 0x2b, 0xd8, 0x4e, 0x24, 0xe6, 0x3a, 0x3d, 0x86, 0xa4,
-	0x0c, 0x39, 0xcb, 0x17, 0x8a, 0x72, 0xe9, 0x7f, 0x59, 0xa9, 0x11, 0x7d, 0x2e, 0x53, 0x0f, 0xad,
-	0xa1, 0x81, 0x16, 0x80, 0x18, 0xc8, 0x19, 0x1f, 0xb4, 0xb1, 0xc7, 0x59, 0xc4, 0x34, 0x60, 0x37,
-	0xa5, 0x0a, 0xec, 0x05, 0xe4, 0x23, 0x4d, 0x90, 0x0b, 0x29, 0xf2, 0x63, 0x58, 0x34, 0x63, 0x17,
-	0xdd, 0x00, 0x65, 0xee, 0x0a, 0xf4, 0x19, 0xf6, 0x33, 0x37, 0x8a, 0xd9, 0xd7, 0xb0, 0xde, 0xf5,
-	0x75, 0x2f, 0xd4, 0x05, 0xff, 0x28, 0xc5, 0xcf, 0xf6, 0xa6, 0x3a, 0x68, 0x11, 0xf6, 0x22, 0x43,
-	0xdd, 0x75, 0x3d, 0x27, 0x99, 0x9a, 0x95, 0xc4, 0xc6, 0x15, 0x11, 0x7b, 0x1b, 0x0c, 0xf4, 0xcf,
-	0xc9, 0xd9, 0x26, 0x7a, 0x10, 0x44, 0x98, 0xf8, 0xda, 0x61, 0x1c, 0xbd, 0xd4, 0x03, 0x35, 0xa1,
-	0xf8, 0xb3, 0x94, 0x8a, 0x0f, 0xb4, 0x5f, 0xe2, 0xe7, 0x91, 0x66, 0xb6, 0xa9, 0xf6, 0xf1, 0x0f,
-	0x72, 0x0d, 0x7f, 0xc9, 0xc8, 0x1d, 0xe4, 0xa3, 0x22, 0x59, 0x09, 0x51, 0x8f, 0x97, 0x54, 0xc3,
-	0xa3, 0x51, 0x89, 0x34, 0x00, 0x0c, 0xe4, 0xe2, 0x51, 0xc9, 0x49, 0xd6, 0x9e, 0x59, 0x1a, 0xb5,
-	0xb4, 0xdc, 0x10, 0x23, 0x1f, 0x82, 0xd3, 0x05, 0xa3, 0x24, 0x2b, 0x27, 0xac, 0x9e, 0xad, 0x9c,
-	0x7f, 0x42, 0x7c, 0x81, 0x4d, 0xff, 0xe8, 0xad, 0x16, 0xba, 0x82, 0x7b, 0xba, 0xb0, 0x33, 0xbd,
-	0x12, 0x4b, 0xf0, 0x99, 0xed, 0xa0, 0xd2, 0xcd, 0xf9, 0xfb, 0x54, 0x93, 0x27, 0x53, 0x4d, 0xfe,
-	0x9a, 0x6a, 0xf2, 0xdb, 0x4c, 0x93, 0x26, 0x33, 0x4d, 0xfa, 0x9c, 0x69, 0xd2, 0x93, 0x32, 0x0a,
-	0x7e, 0x2d, 0x1f, 0xbb, 0xc8, 0x9a, 0x6b, 0xc1, 0x8f, 0xbd, 0xfc, 0x0e, 0x00, 0x00, 0xff, 0xff,
-	0x7f, 0xb0, 0x24, 0x9c, 0xfd, 0x03, 0x00, 0x00,
+	// 510 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x94, 0xb1, 0x6f, 0xd3, 0x40,
+	0x14, 0xc6, 0xe3, 0x40, 0x68, 0x79, 0x81, 0xa2, 0x1e, 0x15, 0x58, 0xa6, 0x72, 0xc3, 0x35, 0x95,
+	0x02, 0x12, 0xb6, 0x5a, 0x66, 0x24, 0x8a, 0x0a, 0x59, 0x58, 0x08, 0x1b, 0x4c, 0xd7, 0xf8, 0x29,
+	0xb2, 0x14, 0xfb, 0x5c, 0xdf, 0xa5, 0x6a, 0xd8, 0x60, 0xe9, 0x8a, 0xc4, 0x3f, 0xc5, 0x58, 0x89,
+	0x85, 0x11, 0x25, 0xfc, 0x21, 0x28, 0xe7, 0xbb, 0x3a, 0x36, 0x76, 0xa3, 0x6c, 0xc9, 0x7b, 0xdf,
+	0xbd, 0xdf, 0xe7, 0x77, 0x9f, 0x0d, 0xee, 0x90, 0x8b, 0x88, 0x0b, 0x7f, 0x1c, 0x09, 0xff, 0xfc,
+	0xf0, 0x14, 0x25, 0x3b, 0xf4, 0xcf, 0x26, 0x98, 0x4e, 0xbd, 0x24, 0xe5, 0x92, 0x93, 0xf6, 0x38,
+	0x12, 0x9e, 0x6e, 0x38, 0x4f, 0x2a, 0xc4, 0xf2, 0x22, 0x53, 0x3a, 0xbb, 0x23, 0xce, 0x47, 0x63,
+	0xf4, 0x59, 0x12, 0xfa, 0x2c, 0x8e, 0xb9, 0x64, 0x32, 0xe4, 0xb1, 0xc8, 0xba, 0x74, 0x1b, 0x1e,
+	0xf4, 0x51, 0xbe, 0x47, 0x76, 0x8e, 0x03, 0x3c, 0x9b, 0xa0, 0x90, 0x74, 0x07, 0x48, 0x1f, 0xa5,
+	0x90, 0x93, 0x00, 0x63, 0x29, 0x4c, 0xf5, 0x2d, 0x3c, 0x2c, 0x54, 0x45, 0xc2, 0x63, 0x81, 0xc4,
+	0x83, 0x0d, 0x5d, 0xb3, 0xad, 0xce, 0xad, 0x5e, 0xfb, 0x68, 0xc7, 0x5b, 0x72, 0xe6, 0x7d, 0xcc,
+	0x7a, 0x03, 0x23, 0xa2, 0xaf, 0x60, 0x3b, 0x1f, 0xa3, 0x67, 0x93, 0x2d, 0x68, 0x86, 0x81, 0x6d,
+	0x75, 0xac, 0xde, 0xdd, 0x41, 0x33, 0x0c, 0x88, 0x0d, 0x1b, 0x2c, 0x08, 0x52, 0x14, 0xc2, 0x6e,
+	0xaa, 0xa2, 0xf9, 0x4b, 0x4f, 0x96, 0xbd, 0x55, 0x9b, 0xb0, 0x56, 0x9b, 0xb8, 0x0f, 0xed, 0xa5,
+	0x87, 0xa6, 0x9f, 0xe1, 0x71, 0x69, 0x07, 0xd7, 0x93, 0x5f, 0xc3, 0xbd, 0xf1, 0xa2, 0x9e, 0x66,
+	0x75, 0xfd, 0x8c, 0xbb, 0x85, 0xf1, 0xe5, 0xb3, 0x85, 0x13, 0xd4, 0x86, 0x47, 0x46, 0x70, 0x9c,
+	0x24, 0x29, 0xcf, 0xf7, 0xcc, 0x72, 0xec, 0x75, 0x47, 0x63, 0xdf, 0xa9, 0x5b, 0x59, 0x9b, 0x5c,
+	0x3e, 0x44, 0x5f, 0x28, 0xc4, 0x00, 0x47, 0xa1, 0x90, 0x98, 0x1e, 0x07, 0x51, 0x18, 0x9b, 0x9d,
+	0x13, 0xb8, 0x1d, 0xb3, 0x08, 0xf5, 0xd6, 0xd5, 0x6f, 0x7a, 0x02, 0xf6, 0xff, 0x72, 0x6d, 0xa9,
+	0x07, 0x2d, 0xb6, 0x28, 0xe8, 0x0d, 0x93, 0x82, 0x91, 0x4c, 0x9a, 0x09, 0x8e, 0x2e, 0x5b, 0xd0,
+	0xfa, 0xb0, 0x88, 0x2a, 0xf9, 0x6a, 0xc1, 0x66, 0x1f, 0xa5, 0xea, 0x92, 0x6e, 0xd9, 0x7a, 0x95,
+	0x2d, 0xe7, 0x60, 0x85, 0x2a, 0x73, 0x43, 0x7b, 0xdf, 0x7e, 0xfd, 0xfd, 0xd1, 0xa4, 0xa4, 0xe3,
+	0x57, 0x44, 0x5f, 0xd9, 0xd0, 0x89, 0x21, 0x5f, 0xd4, 0x5d, 0xeb, 0x08, 0x08, 0xb2, 0x57, 0x9e,
+	0x5f, 0xca, 0xb9, 0xd3, 0xa9, 0x17, 0xac, 0xcd, 0x9e, 0x02, 0xe4, 0x6c, 0xe2, 0xd6, 0x4c, 0x36,
+	0xe4, 0xbd, 0xda, 0xbe, 0x06, 0x3f, 0x57, 0xe0, 0x2e, 0xa1, 0x55, 0x60, 0x2d, 0xce, 0xd1, 0x9b,
+	0x26, 0x1d, 0xe4, 0xc6, 0xd0, 0x38, 0xdd, 0x1b, 0x23, 0x65, 0xd8, 0xcf, 0x14, 0x7b, 0x9f, 0x3c,
+	0xad, 0x67, 0x1b, 0xf4, 0xa5, 0x05, 0x5b, 0x8b, 0x5b, 0x1f, 0x0e, 0x31, 0xd1, 0x0e, 0xf6, 0x2b,
+	0x19, 0xc5, 0xf7, 0xa1, 0xc6, 0x48, 0xe9, 0xd5, 0x58, 0x67, 0x09, 0x6f, 0x0e, 0x7e, 0xce, 0x5c,
+	0xeb, 0x6a, 0xe6, 0x5a, 0x7f, 0x66, 0xae, 0xf5, 0x7d, 0xee, 0x36, 0xae, 0xe6, 0x6e, 0xe3, 0xf7,
+	0xdc, 0x6d, 0x7c, 0x6a, 0x5f, 0xa8, 0x73, 0x72, 0x9a, 0xa0, 0x38, 0xbd, 0xa3, 0x3e, 0x85, 0x2f,
+	0xff, 0x05, 0x00, 0x00, 0xff, 0xff, 0x78, 0x69, 0x98, 0x54, 0x74, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -521,13 +558,12 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
-	// GetRegisterAdmin adds a new admin
-	GetAdmin(ctx context.Context, in *GetAdminRequest, opts ...grpc.CallOption) (*GetAdminResponse, error)
+	GetAdmin(ctx context.Context, in *GetRegisterAdminRequest, opts ...grpc.CallOption) (*GetRegisterAdminResponse, error)
 	// GetStudent adds new student
-	GetStudent(ctx context.Context, in *GetstudentsRequest, opts ...grpc.CallOption) (*GetstudentsResponse, error)
+	GetStudents(ctx context.Context, in *GetstudentsRequest, opts ...grpc.CallOption) (*GetstudentsResponse, error)
+	GetStudent(ctx context.Context, in *GetstudentRequest, opts ...grpc.CallOption) (*GetstudentResponse, error)
 	// GetLeave request a new leave
 	GetLeave(ctx context.Context, in *GetLeaveRequest, opts ...grpc.CallOption) (*GetLeaveRequestResponse, error)
-	// AcceptLeave accept or reject a leave
 	GetAcceptLeave(ctx context.Context, in *GetLeaveApproveRequest, opts ...grpc.CallOption) (*GetLeaveApproveResponse, error)
 }
 
@@ -539,8 +575,8 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 	return &queryClient{cc}
 }
 
-func (c *queryClient) GetAdmin(ctx context.Context, in *GetAdminRequest, opts ...grpc.CallOption) (*GetAdminResponse, error) {
-	out := new(GetAdminResponse)
+func (c *queryClient) GetAdmin(ctx context.Context, in *GetRegisterAdminRequest, opts ...grpc.CallOption) (*GetRegisterAdminResponse, error) {
+	out := new(GetRegisterAdminResponse)
 	err := c.cc.Invoke(ctx, "/lms.v1beta1.Query/GetAdmin", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -548,8 +584,17 @@ func (c *queryClient) GetAdmin(ctx context.Context, in *GetAdminRequest, opts ..
 	return out, nil
 }
 
-func (c *queryClient) GetStudent(ctx context.Context, in *GetstudentsRequest, opts ...grpc.CallOption) (*GetstudentsResponse, error) {
+func (c *queryClient) GetStudents(ctx context.Context, in *GetstudentsRequest, opts ...grpc.CallOption) (*GetstudentsResponse, error) {
 	out := new(GetstudentsResponse)
+	err := c.cc.Invoke(ctx, "/lms.v1beta1.Query/GetStudents", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetStudent(ctx context.Context, in *GetstudentRequest, opts ...grpc.CallOption) (*GetstudentResponse, error) {
+	out := new(GetstudentResponse)
 	err := c.cc.Invoke(ctx, "/lms.v1beta1.Query/GetStudent", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -577,13 +622,12 @@ func (c *queryClient) GetAcceptLeave(ctx context.Context, in *GetLeaveApproveReq
 
 // QueryServer is the server API for Query service.
 type QueryServer interface {
-	// GetRegisterAdmin adds a new admin
-	GetAdmin(context.Context, *GetAdminRequest) (*GetAdminResponse, error)
+	GetAdmin(context.Context, *GetRegisterAdminRequest) (*GetRegisterAdminResponse, error)
 	// GetStudent adds new student
-	GetStudent(context.Context, *GetstudentsRequest) (*GetstudentsResponse, error)
+	GetStudents(context.Context, *GetstudentsRequest) (*GetstudentsResponse, error)
+	GetStudent(context.Context, *GetstudentRequest) (*GetstudentResponse, error)
 	// GetLeave request a new leave
 	GetLeave(context.Context, *GetLeaveRequest) (*GetLeaveRequestResponse, error)
-	// AcceptLeave accept or reject a leave
 	GetAcceptLeave(context.Context, *GetLeaveApproveRequest) (*GetLeaveApproveResponse, error)
 }
 
@@ -591,10 +635,13 @@ type QueryServer interface {
 type UnimplementedQueryServer struct {
 }
 
-func (*UnimplementedQueryServer) GetAdmin(ctx context.Context, req *GetAdminRequest) (*GetAdminResponse, error) {
+func (*UnimplementedQueryServer) GetAdmin(ctx context.Context, req *GetRegisterAdminRequest) (*GetRegisterAdminResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAdmin not implemented")
 }
-func (*UnimplementedQueryServer) GetStudent(ctx context.Context, req *GetstudentsRequest) (*GetstudentsResponse, error) {
+func (*UnimplementedQueryServer) GetStudents(ctx context.Context, req *GetstudentsRequest) (*GetstudentsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStudents not implemented")
+}
+func (*UnimplementedQueryServer) GetStudent(ctx context.Context, req *GetstudentRequest) (*GetstudentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStudent not implemented")
 }
 func (*UnimplementedQueryServer) GetLeave(ctx context.Context, req *GetLeaveRequest) (*GetLeaveRequestResponse, error) {
@@ -609,7 +656,7 @@ func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 }
 
 func _Query_GetAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAdminRequest)
+	in := new(GetRegisterAdminRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -621,13 +668,31 @@ func _Query_GetAdmin_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: "/lms.v1beta1.Query/GetAdmin",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).GetAdmin(ctx, req.(*GetAdminRequest))
+		return srv.(QueryServer).GetAdmin(ctx, req.(*GetRegisterAdminRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetStudents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetstudentsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetStudents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/lms.v1beta1.Query/GetStudents",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetStudents(ctx, req.(*GetstudentsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Query_GetStudent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetstudentsRequest)
+	in := new(GetstudentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -639,7 +704,7 @@ func _Query_GetStudent_Handler(srv interface{}, ctx context.Context, dec func(in
 		FullMethod: "/lms.v1beta1.Query/GetStudent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).GetStudent(ctx, req.(*GetstudentsRequest))
+		return srv.(QueryServer).GetStudent(ctx, req.(*GetstudentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -689,6 +754,10 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Query_GetAdmin_Handler,
 		},
 		{
+			MethodName: "GetStudents",
+			Handler:    _Query_GetStudents_Handler,
+		},
+		{
 			MethodName: "GetStudent",
 			Handler:    _Query_GetStudent_Handler,
 		},
@@ -725,66 +794,6 @@ func (m *GetLeaveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	return len(dAtA) - i, nil
-}
-
-func (m *GetAdminRequest) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *GetAdminRequest) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *GetAdminRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	return len(dAtA) - i, nil
-}
-
-func (m *GetAdminResponse) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *GetAdminResponse) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *GetAdminResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if len(m.Admin) > 0 {
-		for iNdEx := len(m.Admin) - 1; iNdEx >= 0; iNdEx-- {
-			{
-				size, err := m.Admin[iNdEx].MarshalToSizedBuffer(dAtA[:i])
-				if err != nil {
-					return 0, err
-				}
-				i -= size
-				i = encodeVarintQuery(dAtA, i, uint64(size))
-			}
-			i--
-			dAtA[i] = 0xa
-		}
-	}
 	return len(dAtA) - i, nil
 }
 
@@ -831,10 +840,10 @@ func (m *GetstudentsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Students) > 0 {
-		for iNdEx := len(m.Students) - 1; iNdEx >= 0; iNdEx-- {
+	if len(m.Student) > 0 {
+		for iNdEx := len(m.Student) - 1; iNdEx >= 0; iNdEx-- {
 			{
-				size, err := m.Students[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				size, err := m.Student[iNdEx].MarshalToSizedBuffer(dAtA[:i])
 				if err != nil {
 					return 0, err
 				}
@@ -844,6 +853,78 @@ func (m *GetstudentsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			i--
 			dAtA[i] = 0xa
 		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GetstudentRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetstudentRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GetstudentRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Address) > 0 {
+		i -= len(m.Address)
+		copy(dAtA[i:], m.Address)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Address)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Id) > 0 {
+		i -= len(m.Id)
+		copy(dAtA[i:], m.Id)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Id)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GetstudentResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetstudentResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GetstudentResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Student != nil {
+		{
+			size, err := m.Student.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -988,6 +1069,13 @@ func (m *GetRegisterAdminRequest) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	_ = i
 	var l int
 	_ = l
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -1011,19 +1099,17 @@ func (m *GetRegisterAdminResponse) MarshalToSizedBuffer(dAtA []byte) (int, error
 	_ = i
 	var l int
 	_ = l
-	if len(m.GetAdminrequest) > 0 {
-		for iNdEx := len(m.GetAdminrequest) - 1; iNdEx >= 0; iNdEx-- {
-			{
-				size, err := m.GetAdminrequest[iNdEx].MarshalToSizedBuffer(dAtA[:i])
-				if err != nil {
-					return 0, err
-				}
-				i -= size
-				i = encodeVarintQuery(dAtA, i, uint64(size))
+	if m.Admin != nil {
+		{
+			size, err := m.Admin.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
 			}
-			i--
-			dAtA[i] = 0xa
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
 		}
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -1048,30 +1134,6 @@ func (m *GetLeaveRequest) Size() (n int) {
 	return n
 }
 
-func (m *GetAdminRequest) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	return n
-}
-
-func (m *GetAdminResponse) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if len(m.Admin) > 0 {
-		for _, e := range m.Admin {
-			l = e.Size()
-			n += 1 + l + sovQuery(uint64(l))
-		}
-	}
-	return n
-}
-
 func (m *GetstudentsRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -1087,11 +1149,41 @@ func (m *GetstudentsResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if len(m.Students) > 0 {
-		for _, e := range m.Students {
+	if len(m.Student) > 0 {
+		for _, e := range m.Student {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
+	}
+	return n
+}
+
+func (m *GetstudentRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.Address)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *GetstudentResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Student != nil {
+		l = m.Student.Size()
+		n += 1 + l + sovQuery(uint64(l))
 	}
 	return n
 }
@@ -1150,6 +1242,10 @@ func (m *GetRegisterAdminRequest) Size() (n int) {
 	}
 	var l int
 	_ = l
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
 	return n
 }
 
@@ -1159,11 +1255,9 @@ func (m *GetRegisterAdminResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if len(m.GetAdminrequest) > 0 {
-		for _, e := range m.GetAdminrequest {
-			l = e.Size()
-			n += 1 + l + sovQuery(uint64(l))
-		}
+	if m.Admin != nil {
+		l = m.Admin.Size()
+		n += 1 + l + sovQuery(uint64(l))
 	}
 	return n
 }
@@ -1203,140 +1297,6 @@ func (m *GetLeaveRequest) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: GetLeaveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *GetAdminRequest) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: GetAdminRequest: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: GetAdminRequest: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *GetAdminResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: GetAdminResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: GetAdminResponse: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Admin", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Admin = append(m.Admin, &Admin{})
-			if err := m.Admin[len(m.Admin)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipQuery(dAtA[iNdEx:])
@@ -1439,7 +1399,7 @@ func (m *GetstudentsResponse) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Students", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Student", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1466,8 +1426,208 @@ func (m *GetstudentsResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Students = append(m.Students, &Student{})
-			if err := m.Students[len(m.Students)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Student = append(m.Student, &Student{})
+			if err := m.Student[len(m.Student)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetstudentRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetstudentRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetstudentRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Address = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetstudentResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetstudentResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetstudentResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Student", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Student == nil {
+				m.Student = &Student{}
+			}
+			if err := m.Student.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1789,6 +1949,38 @@ func (m *GetRegisterAdminRequest) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: GetRegisterAdminRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipQuery(dAtA[iNdEx:])
@@ -1841,7 +2033,7 @@ func (m *GetRegisterAdminResponse) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GetAdminrequest", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Admin", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1868,8 +2060,10 @@ func (m *GetRegisterAdminResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.GetAdminrequest = append(m.GetAdminrequest, &GetAdminRequest{})
-			if err := m.GetAdminrequest[len(m.GetAdminrequest)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if m.Admin == nil {
+				m.Admin = &Admin{}
+			}
+			if err := m.Admin.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
