@@ -17,6 +17,7 @@ package cmd
 
 import (
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/pavania1/cosmos-leave-management/x/lms/types"
 	"github.com/spf13/cobra"
 )
@@ -54,7 +55,7 @@ func GetQueryCmd() *cobra.Command {
 
 func GetStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "query",
+		Use:   " GetStudent",
 		Short: "A brief description of your command",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,
@@ -80,11 +81,12 @@ func GetStudentCmd() *cobra.Command {
 
 		},
 	}
+	flags.AddQueryFlagsToCmd(cmd)
 	return cmd
 }
 func GetStudentscmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "query",
+		Use:   "Getstudents",
 		Short: "A brief description of your command",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,
@@ -102,11 +104,12 @@ func GetStudentscmd() *cobra.Command {
 			return clientCtx.PrintProto(res)
 		},
 	}
+	flags.AddQueryFlagsToCmd(cmd)
 	return cmd
 }
 func GetRegisterAdminCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "query",
+		Use:   "GetRegisterAdmin",
 		Short: "A brief description of your command",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,
@@ -128,11 +131,12 @@ func GetRegisterAdminCmd() *cobra.Command {
 			return clientCtx.PrintProto(res)
 		},
 	}
+	flags.AddQueryFlagsToCmd(cmd)
 	return cmd
 }
 func GetAcceptLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "query",
+		Use:   "GetAcceptLeave",
 		Short: "A brief description of your command",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,
@@ -153,7 +157,7 @@ func GetAcceptLeaveCmd() *cobra.Command {
 }
 func GetLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "query",
+		Use:   "GetLeave",
 		Short: "A brief description of your command",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,
