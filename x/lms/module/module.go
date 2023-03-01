@@ -11,6 +11,7 @@ import (
 	// "cosmossdk.io/core/appmodule"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/cosmos/cosmos-sdk/x/nft"
 
 	sdkclient "github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/codec"
@@ -21,7 +22,7 @@ import (
 	// "github.com/cosmos/cosmos-sdk/types/module"
 	// "github.com/cosmos/cosmos-sdk/x/mint/types"
 
-	"github.com/cosmos/cosmos-sdk/x/nft"
+	// "github.com/cosmos/cosmos-sdk/x/nft"
 	"github.com/pavania1/cosmos-leave-management/x/lms/types"
 
 	gwruntime "github.com/grpc-ecosystem/grpc-gateway/runtime"
@@ -144,8 +145,8 @@ func (am AppModule) Route() sdk.Route {
 // InitGenesis performs genesis initialization for the nft module. It returns
 // no validator updates.
 func (am AppModule) InitGenesis(ctx sdk.Context, cdc codec.JSONCodec, data json.RawMessage) []abci.ValidatorUpdate {
-	var genesisState nft.GenesisState
-	cdc.MustUnmarshalJSON(data, &genesisState)
+	// var genesisState nft.GenesisState
+	// cdc.MustUnmarshalJSON(data, &genesisState)
 	// am.keeper.InitGenesis(ctx, &genesisState)
 	// return []abci.ValidatorUpdate{}
 	return nil

@@ -16,11 +16,14 @@ limitations under the License.
 package cmd
 
 import (
+	"fmt"
 	"strconv"
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/pavania1/cosmos-leave-management/x/lms/types"
 	"github.com/spf13/cobra"
 )
@@ -42,7 +45,7 @@ func GetTxCmd() *cobra.Command {
 }
 func AddStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "tx",
+		Use:   "Addstudent",
 		Short: "A brief description of your command",
 		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
 
@@ -52,11 +55,12 @@ func AddStudentCmd() *cobra.Command {
 				panic(err)
 			}
 			admin := args[0]
-			address := args[1]
+			//address := args[1]
+			address, _ := sdk.AccAddressFromBech32(args[1])
 			name := args[2]
 			id := args[3]
 
-			msgClient := types.NewAddStudentRequest(admin, address, name, id)
+			msgClient := types.NewAddStudentRequest(admin, address.String(), name, id)
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
 		},
 	}
@@ -64,7 +68,7 @@ func AddStudentCmd() *cobra.Command {
 }
 func RegisterAdminCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "tx",
+		Use:   "RegisterAdmin",
 		Short: "A brief description of your command",
 		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
 
@@ -73,17 +77,24 @@ func RegisterAdminCmd() *cobra.Command {
 			if err != nil {
 				panic(err)
 			}
-			Address := args[0]
+			fmt.Println("args[0]", args[0])
+			fmt.Println("args[1]", args[1])
+			Address, err := sdk.AccAddressFromBech32(args[0])
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println("address", Address)
 			name := args[1]
 			msgClient := types.NewRegisterAdminRequest(Address, name)
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
 		},
 	}
+	flags.AddTxFlagsToCmd(cmd)
 	return cmd
 }
 func AcceptLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "tx",
+		Use:   "AcceptLeave",
 		Short: "A brief description of your command",
 		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
 
@@ -102,11 +113,12 @@ func AcceptLeaveCmd() *cobra.Command {
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
 		},
 	}
+	flags.AddTxFlagsToCmd(cmd)
 	return cmd
 }
 func ApplyLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "tx",
+		Use:   "ApplyLeave",
 		Short: "A brief description of your command",
 		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
 
@@ -118,7 +130,8 @@ func ApplyLeaveCmd() *cobra.Command {
 			dateString := "2023-02-22"
 			fromdate, _ := time.Parse("2023-02-22", dateString)
 			todate, _ := time.Parse("2023-02-22", "2023-02-24")
-			Address := args[0]
+			//Address := args[0]
+			Address, _ := sdk.AccAddressFromBech32(args[0])
 			Reason := args[1]
 			From := &fromdate
 			To := &todate

@@ -13,9 +13,10 @@ import (
 //NewKeeper
 
 func NewKeeper(cdc codec.BinaryCodec, storekey storetypes.StoreKey) Keeper {
-	if _, err := sdk.AccAddressFromBech32("h"); err != nil {
-		panic(fmt.Errorf("invalid  authority address: %w", err))
-	}
+	// if _, err := sdk.AccAddressFromBech32("h"); err != nil {
+	// 	fmt.Println("hello")
+	// 	panic(fmt.Errorf("invalid  authority address: %w", err))
+	// }
 	return Keeper{
 		cdc:      cdc,
 		storeKey: storekey,
