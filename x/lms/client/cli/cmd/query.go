@@ -38,7 +38,7 @@ import (
 
 func GetQueryCmd() *cobra.Command {
 	studentqueryCmd := &cobra.Command{
-		Use:   "query",
+		Use:   types.ModuleName,
 		Short: "A brief description of your command",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,

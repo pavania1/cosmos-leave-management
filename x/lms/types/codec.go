@@ -5,24 +5,22 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	cryptocodec "github.com/cosmos/cosmos-sdk/crypto/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/msgservice"
 	authzcodec "github.com/cosmos/cosmos-sdk/x/authz/codec"
 )
 
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&AddStudentRequest{}, "cosmos-sdk/Addstudentrequest", nil)
-	cdc.RegisterConcrete(&RegisterAdminRequest{}, "cosmos-sdk/RegisterAdmin", nil)
-	cdc.RegisterConcrete(&ApplyLeaveRequest{}, "cosmos-sdk/ApplyLeave", nil)
-	cdc.RegisterConcrete(&AcceptLeaveRequest{}, "cosmos-sdk/AcceptLeave", nil)
+	cdc.RegisterConcrete(&AddStudentRequest{}, "cosmos-lms/AddStudent", nil)
+	cdc.RegisterConcrete(&RegisterAdminRequest{}, "cosmos-lms/RegisterAdmin", nil)
+	cdc.RegisterConcrete(&ApplyLeaveRequest{}, "cosmos-lms/ApplyLeave", nil)
+	cdc.RegisterConcrete(&AcceptLeaveRequest{}, "cosmos-lms/AcceptLeave", nil)
 }
 func RegisterInterfaces(registry types.InterfaceRegistry) {
-	registry.RegisterImplementations(
-		&AddStudentRequest{},
+	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&RegisterAdminRequest{},
+		&AddStudentRequest{},
 		&ApplyLeaveRequest{},
 		&AcceptLeaveRequest{},
 	)
-	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }
 
 var (
