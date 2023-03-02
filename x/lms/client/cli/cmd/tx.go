@@ -43,10 +43,12 @@ func GetTxCmd() *cobra.Command {
 	)
 	return studentTxCmd
 }
+
+// -------------------->> ADD STUDENT <<-------------------------
 func AddStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "Addstudent",
-		Short: "A brief description of your command",
+		Short: "admin | address | name | id)",
 		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -56,20 +58,26 @@ func AddStudentCmd() *cobra.Command {
 			}
 			admin := args[0]
 			//address := args[1]
-			address, _ := sdk.AccAddressFromBech32(args[1])
+			address, err := sdk.AccAddressFromBech32(args[1])
+			if err != nil {
+				panic(err)
+			}
 			name := args[2]
 			id := args[3]
 
-			msgClient := types.NewAddStudentRequest(admin, address.String(), name, id)
+			msgClient := types.NewAddStudentRequest(admin, address, name, id)
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
 		},
 	}
+	flags.AddTxFlagsToCmd(cmd)
 	return cmd
 }
+
+// ----------------------->> REGISTER ADMIN <<---------------------------------
 func RegisterAdminCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "RegisterAdmin",
-		Short: "A brief description of your command",
+		Short: "Address| name",
 		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -92,10 +100,12 @@ func RegisterAdminCmd() *cobra.Command {
 	flags.AddTxFlagsToCmd(cmd)
 	return cmd
 }
+
+// -------------------------->> ACCEPT LEAVE <<-----------------------------
 func AcceptLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "AcceptLeave",
-		Short: "A brief description of your command",
+		Short: "Admin | leaveId | Leavestatus",
 		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -106,20 +116,28 @@ func AcceptLeaveCmd() *cobra.Command {
 			Admin := args[0]
 			LeaveId := args[1]
 			leaveId, err := strconv.ParseUint(LeaveId, 10, 64)
+			Status := args[2]
 			if err != nil {
 				return err
 			}
-			msgClient := types.NewAcceptLeaveRequest(Admin, leaveId, types.LeaveStatus_STATUS_ACCEPTED)
+			var msgClient *types.AcceptLeaveRequest
+			if Status == "1" {
+				msgClient = types.NewAcceptLeaveRequest(Admin, leaveId, types.LeaveStatus_STATUS_ACCEPTED)
+			} else {
+				msgClient = types.NewAcceptLeaveRequest(Admin, leaveId, types.LeaveStatus_STATUS_REJECTED)
+			}
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
 		},
 	}
 	flags.AddTxFlagsToCmd(cmd)
 	return cmd
 }
+
+// ----------------------------->> APPLY LEAVE <<---------------------------------------
 func ApplyLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "ApplyLeave",
-		Short: "A brief description of your command",
+		Short: " Address| Reason| From| To",
 		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -139,7 +157,9 @@ func ApplyLeaveCmd() *cobra.Command {
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
 		},
 	}
+	flags.AddTxFlagsToCmd(cmd)
 	return cmd
+
 }
 func init() {
 	//rootCmd.AddCommand(txCmd)

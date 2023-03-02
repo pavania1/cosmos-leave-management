@@ -13,20 +13,17 @@ import (
 //NewKeeper
 
 func NewKeeper(cdc codec.BinaryCodec, storekey storetypes.StoreKey) Keeper {
-	// if _, err := sdk.AccAddressFromBech32("h"); err != nil {
-	// 	fmt.Println("hello")
-	// 	panic(fmt.Errorf("invalid  authority address: %w", err))
-	// }
 	return Keeper{
 		cdc:      cdc,
 		storeKey: storekey,
 	}
 }
 
+// -------------------------->> ADD STUDENT <<-----------------------------------
 func (k Keeper) AddStudent(ctx sdk.Context, req *types.AddStudentRequest) error {
-	// if _, err := sdk.AccAddressFromBech32(req.Address); err != nil {
-	// 	panic(fmt.Errorf("Invalid Authority Address:%w", err))
-	// }
+	if _, err := sdk.AccAddressFromBech32(req.Address); err != nil {
+		panic(fmt.Errorf("Invalid Authority Address:%w", err))
+	}
 
 	store := ctx.KVStore(k.storeKey)
 	bz, err := k.cdc.Marshal(req)
@@ -53,10 +50,12 @@ func (k Keeper) CheckAddstudent(ctx sdk.Context, address string) bool {
 	}
 }
 
+// --------------------------> ADD The ADMIN <<----------------------------
+
 func (k Keeper) AdminRegister(ctx sdk.Context, req *types.RegisterAdminRequest) error {
-	// if _, err := sdk.AccAddressFromBech32(req.Address); err != nil {
-	// 	panic(fmt.Errorf("invalid authority address: %w", err))
-	// }
+	if _, err := sdk.AccAddressFromBech32(req.Address); err != nil {
+		panic(fmt.Errorf("invalid authority address: %w", err))
+	}
 	store := ctx.KVStore(k.storeKey)
 	bz, err := k.cdc.Marshal(req)
 	if err != nil {
@@ -64,14 +63,11 @@ func (k Keeper) AdminRegister(ctx sdk.Context, req *types.RegisterAdminRequest) 
 	} else {
 		sdkaddress := sdk.AccAddress(req.Address).String()
 		store.Set(types.AdminstoreKey(sdkaddress), bz)
-
-		// val := store.Get(types.AdminstoreKey(sdkaddress))
-		// ans := types.RegisterAdminRequest{}
-		// k.cdc.Unmarshal(val, &ans)
-		// fmt.Println("the marshalled get data  is", ans)
 	}
 	return nil
 }
+
+// -------------------->> THIS function is used in test file (checking the admin) <<---------------------
 func (k Keeper) CheckAdminregister(ctx sdk.Context, address string) bool {
 	store := ctx.KVStore(k.storeKey)
 	sdkaddress := sdk.AccAddress(address).String()
@@ -85,10 +81,12 @@ func (k Keeper) CheckAdminregister(ctx sdk.Context, address string) bool {
 		return true
 	}
 }
+
+// ----------------------->> ACCEPT LEAVE <<------------------------------
 func (k Keeper) AcceptLeave(ctx sdk.Context, req *types.AcceptLeaveRequest) error {
-	// if _, err := sdk.AccAddressFromBech32(req.Admin); err != nil {
-	// 	panic(fmt.Errorf("invalid  authority address: %w", err))
-	// }
+	if _, err := sdk.AccAddressFromBech32(req.Admin); err != nil {
+		panic(fmt.Errorf("invalid  authority address: %w", err))
+	}
 	store := ctx.KVStore(k.storeKey)
 	req.Status = types.LeaveStatus_STATUS_ACCEPTED
 	bz, err := k.cdc.Marshal(req)
@@ -99,10 +97,12 @@ func (k Keeper) AcceptLeave(ctx sdk.Context, req *types.AcceptLeaveRequest) erro
 	}
 	return nil
 }
+
+// ----------------------->> APPLY LEAVE   <<-----------------------------
 func (k Keeper) ApplyLeave(ctx sdk.Context, req *types.ApplyLeaveRequest) error {
-	// if _, err := sdk.AccAddressFromBech32(req.Admin); err != nil {
-	// 	panic(fmt.Errorf("invalid  authority address: %w", err))
-	// }
+	if _, err := sdk.AccAddressFromBech32(req.Address); err != nil {
+		panic(fmt.Errorf("invalid  authority address: %w", err))
+	}
 	store := ctx.KVStore(k.storeKey)
 	bz, err := k.cdc.Marshal(req)
 	if err != nil {
@@ -111,6 +111,72 @@ func (k Keeper) ApplyLeave(ctx sdk.Context, req *types.ApplyLeaveRequest) error 
 		store.Set(types.LeaveKey, bz)
 	}
 	return nil
+}
+
+//--------------------->> GET STUDENTS  <<---------------------------------------------
+func (k Keeper) Getstudents(ctx sdk.Context, getstudents *types.GetstudentsRequest) []types.Student {
+	store := ctx.KVStore(k.storeKey)
+	var students []types.Student
+	itr := store.Iterator(types.StudentKey, nil)
+	for ; itr.Valid(); itr.Next() {
+		var student types.Student
+		k.cdc.Unmarshal(itr.Value(), &student)
+		fmt.Println("Students are:", student)
+	}
+	return students
+}
+
+// -------------------->> GET STUDENT <<-----------------------------
+func (k Keeper) Getstudent(ctx sdk.Context, Address string) (req types.Student, err error) {
+	if _, err := sdk.AccAddressFromBech32(Address); err != nil {
+		panic(err)
+	}
+	store := ctx.KVStore(k.storeKey)
+	student := store.Get(types.StudentStoreKey(Address))
+	fmt.Println(student)
+	if student == nil {
+		panic("student not have")
+	}
+	fmt.Println(student)
+	k.cdc.MustUnmarshal(student, &req)
+	fmt.Println(req)
+	return req, err
+}
+
+//<------------------GET LEAVE REQUESTS------------------------------->//
+
+func (k Keeper) GetLeaveRqst(ctx sdk.Context, getLeaves *types.GetLeaveRequest) {
+	store := ctx.KVStore(k.storeKey)
+	var leaves types.ApplyLeaveRequest
+	itr := store.Iterator(types.AppliedLeavesKey, nil)
+	for ; itr.Valid(); itr.Next() {
+		k.cdc.Unmarshal(itr.Value(), &leaves)
+		fmt.Println(leaves)
+	}
+}
+
+// -------------------------->> GET APPROVE LEAVES <<-------------------------------
+func (k Keeper) GetAcceptLeaves(ctx sdk.Context, getleaves *types.GetLeaveApproveRequest) {
+	store := ctx.KVStore(k.storeKey)
+	var approve types.AcceptLeaveRequest
+	itr := store.Iterator(types.AcceptedLeavesKey, nil)
+	for ; itr.Valid(); itr.Next() {
+		k.cdc.Unmarshal(itr.Value(), &approve)
+		fmt.Println(approve)
+	}
+}
+
+// -------------------------------->> GET ADMIN <<---------------------------------------
+func (k Keeper) GetAdminn(ctx sdk.Context, Address string) []byte {
+	if _, err := sdk.AccAddressFromBech32(Address); err != nil {
+		panic(err)
+	}
+	store := ctx.KVStore(k.storeKey)
+
+	// ans := store.Get(types.AdminKey)
+	// var admin types.Admin
+	// k.cdc.Unmarshal(ans, &admin)
+	return store.Get(types.AdminstoreKey(Address))
 }
 
 // func (k Keeper) CheckLeaveStatus(ctx sdk.Context, studentAddress string) (types.Leave, error) {

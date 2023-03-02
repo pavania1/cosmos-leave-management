@@ -15,10 +15,10 @@ var (
 	_ sdk.Msg = &RegisterAdminRequest{}
 )
 
-func NewAddStudentRequest(Admin string, name string, address string, id string) *AddStudentRequest {
+func NewAddStudentRequest(Admin string, address sdk.AccAddress, name string, id string) *AddStudentRequest {
 	return &AddStudentRequest{
 		Admin:   Admin,
-		Address: address,
+		Address: address.String(),
 		Name:    name,
 		Id:      id,
 	}
@@ -45,22 +45,6 @@ func NewAcceptLeaveRequest(Admin string, LeaveId uint64, Status LeaveStatus) *Ac
 		Status:  Status,
 	}
 }
-func NewGetStudentRequest(Id string, Address string) *GetstudentRequest {
-	return &GetstudentRequest{
-		Id:      Id,
-		Address: Address,
-	}
-}
-
-func NewGetAdminRequest(name string) *GetRegisterAdminRequest {
-	return &GetRegisterAdminRequest{
-		Name: name,
-	}
-
-}
-func NewGetStudentsRequest() *GetstudentsRequest {
-	return &GetstudentsRequest{}
-}
 
 // GetSignBytes implements the LegacyMsg interface.
 func (msg AddStudentRequest) GetSignBytes() []byte {
@@ -69,7 +53,7 @@ func (msg AddStudentRequest) GetSignBytes() []byte {
 
 // GetSigners returns the expected signers for a MsgUpdateParams message.
 func (msg *AddStudentRequest) GetSigners() []sdk.AccAddress {
-	addr, _ := sdk.AccAddressFromBech32("")
+	addr, _ := sdk.AccAddressFromBech32(msg.Admin)
 	return []sdk.AccAddress{addr}
 }
 
@@ -78,14 +62,14 @@ func (msg *AddStudentRequest) ValidateBasic() error {
 	if _, err := sdk.AccAddressFromBech32(msg.Admin); err != nil {
 		return sdkerrors.Wrap(err, "invalid authority address")
 	} else if msg.Name == "" {
-		return errors.New("name cant be null")
+		return ErrStudentNameNil
 	} else if msg.Admin == "" {
 		return errors.New("Admin cant be null")
 	} else if msg.Address == "" {
-		return errors.New("address cant be null")
+		return ErrStudentAddressNil
 
 	} else if msg.Id == "" {
-		return errors.New("Id cant be null")
+		return ErrStudentIdNil
 	}
 	return nil
 }
@@ -104,7 +88,7 @@ func (msg AcceptLeaveRequest) ValidateBasic() error {
 	if _, err := sdk.AccAddressFromBech32(msg.Admin); err != nil {
 		return sdkerrors.Wrap(err, "invalid authority address")
 	} else if msg.Admin == "" {
-		return errors.New("name cant be null")
+		return ErrAdminNameNil
 	} else if msg.LeaveId == 0 {
 		return errors.New("Leave id cant be null")
 	} else if msg.Status == 0 {
@@ -119,7 +103,7 @@ func (msg ApplyLeaveRequest) GetSignBytes() []byte {
 	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(&msg))
 }
 func (msg *ApplyLeaveRequest) GetSigners() []sdk.AccAddress {
-	addr, _ := sdk.AccAddressFromBech32("")
+	addr, _ := sdk.AccAddressFromBech32(msg.Address)
 	return []sdk.AccAddress{addr}
 }
 func (msg *ApplyLeaveRequest) ValidateBasic() error {

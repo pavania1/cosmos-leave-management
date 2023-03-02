@@ -53,6 +53,8 @@ func GetQueryCmd() *cobra.Command {
 	return studentqueryCmd
 }
 
+// ------------------------->> GET STUDENT <<---------------------------------
+
 func GetStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   " GetStudent",
@@ -84,6 +86,8 @@ func GetStudentCmd() *cobra.Command {
 	flags.AddQueryFlagsToCmd(cmd)
 	return cmd
 }
+
+// ----------------------------->> GET STUDENTS <<-----------------------------------
 func GetStudentscmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "Getstudents",
@@ -107,10 +111,12 @@ func GetStudentscmd() *cobra.Command {
 	flags.AddQueryFlagsToCmd(cmd)
 	return cmd
 }
+
+// ------------------------------>> GET REGISTER ADMIN <<-------------------------------------
 func GetRegisterAdminCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "GetRegisterAdmin",
-		Short: "A brief description of your command",
+		Short: "name",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,
 
@@ -134,6 +140,8 @@ func GetRegisterAdminCmd() *cobra.Command {
 	flags.AddQueryFlagsToCmd(cmd)
 	return cmd
 }
+
+// ------------------------------->> GET ACCEPT lEAVE <<------------------------------
 func GetAcceptLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "GetAcceptLeave",
@@ -155,6 +163,8 @@ func GetAcceptLeaveCmd() *cobra.Command {
 	}
 	return cmd
 }
+
+// ---------------------------->> GET  APPLY LEAVE <<-------------------------------
 func GetLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "GetLeave",
@@ -182,6 +192,8 @@ func init() {
 	rootCmd.AddCommand(GetStudentCmd())
 	rootCmd.AddCommand(GetRegisterAdminCmd())
 	rootCmd.AddCommand(GetStudentscmd())
+	rootCmd.AddCommand(GetLeaveCmd())
+	rootCmd.AddCommand(GetAcceptLeaveCmd())
 
 	// Here you will define your flags and configuration settings.
 

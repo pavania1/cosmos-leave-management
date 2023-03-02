@@ -8,9 +8,11 @@ const (
 )
 
 var (
-	AdminKey   = []byte{0x01}
-	StudentKey = []byte{0x02}
-	LeaveKey   = []byte{0x03}
+	AdminKey          = []byte{0x01}
+	StudentKey        = []byte{0x02}
+	LeaveKey          = []byte{0x03}
+	AcceptedLeavesKey = []byte{0x04}
+	AppliedLeavesKey  = []byte{0x05}
 )
 
 func StudentStoreKey(studentid string) []byte {
