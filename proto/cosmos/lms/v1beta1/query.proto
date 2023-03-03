@@ -22,15 +22,14 @@ message GetstudentsRequest{
 
 }
 message GetstudentsResponse{
-    repeated Student student=1;
+    repeated AddStudentRequest student=1;
 }
 
 message GetstudentRequest{
-    string id=1;
-    string address=2;
+    string address=1;
 }
 message GetstudentResponse{
-    Student student=1;
+    AddStudentRequest student=1;
 }
 message GetLeaveReq{
 
@@ -45,11 +44,11 @@ message GetLeaveApproveResponse{
     repeated GetLeaveRequest Getleaverequest=1;
 }
 message GetRegisterAdminRequest{
-    string name=1;
+    string Address=1;
 }
 message GetRegisterAdminResponse{
     //repeated GetAdminRequest GetAdminrequest=1;
-    Admin admin=1;
+    RegisterAdminRequest admin=1;
     
 }
 // message GetApplyLeaveRequest{

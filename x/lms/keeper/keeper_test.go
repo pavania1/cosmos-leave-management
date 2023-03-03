@@ -41,6 +41,7 @@ func TestTestSuite(t *testing.T) {
 	suite.Run(t, new(TestSuite))
 }
 
+//------------------------------------>> Test for AddStudent <<----------------------------------------
 func (s *TestSuite) TestAddStudent() {
 	tests := []struct {
 		Address string
@@ -82,6 +83,7 @@ func (s *TestSuite) TestAddStudent() {
 
 }
 
+//-------------------------------------->> Test for REGISTER ADMIN <<------------------------------------
 func (s *TestSuite) TestRegisterAdmin() {
 	tests := []struct {
 		Name    string
@@ -141,6 +143,7 @@ func (s *TestSuite) TestRegisterAdmin() {
 // 	}
 //  }
 
+//--------------------------------------------->> Test for APPLY LEAVE  <<-------------------------------
 func (s *TestSuite) TestLeave() {
 	dateString := "2023-02-22"
 	fromdate, _ := time.Parse("2023-02-22", dateString)
@@ -164,6 +167,7 @@ func (s *TestSuite) TestLeave() {
 // 	s.Require().NoError(err)
 // }
 
+//-------------------------------------->>Test fro ACCEPT LEAVE <<-------------------------------------
 func (s *TestSuite) TestAcceptLeave() {
 	tests := []struct {
 		Admin   string

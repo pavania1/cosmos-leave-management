@@ -31,8 +31,8 @@ func (k Keeper) AddStudent(ctx sdk.Context, req *types.AddStudentRequest) error 
 		return err
 	} else {
 		// store.Set(types.StudentKey, bz)
-		sdkaddress := sdk.AccAddress(req.Address).String()
-		store.Set(types.StudentStoreKey(sdkaddress), bz)
+		//sdkaddress := sdk.AccAddress(req.Address).String()
+		store.Set(types.StudentStoreKey(req.Address), bz)
 	}
 	return nil
 }
@@ -61,8 +61,8 @@ func (k Keeper) AdminRegister(ctx sdk.Context, req *types.RegisterAdminRequest) 
 	if err != nil {
 		return err
 	} else {
-		sdkaddress := sdk.AccAddress(req.Address).String()
-		store.Set(types.AdminstoreKey(sdkaddress), bz)
+		// sdkaddress := sdk.AccAddress(req.Address).String()
+		store.Set(types.AdminstoreKey(req.Address), bz)
 	}
 	return nil
 }
@@ -114,20 +114,21 @@ func (k Keeper) ApplyLeave(ctx sdk.Context, req *types.ApplyLeaveRequest) error 
 }
 
 //--------------------->> GET STUDENTS  <<---------------------------------------------
-func (k Keeper) Getstudents(ctx sdk.Context, getstudents *types.GetstudentsRequest) []types.Student {
+func (k Keeper) Getstudents(ctx sdk.Context, getstudents *types.GetstudentsRequest) []*types.AddStudentRequest {
 	store := ctx.KVStore(k.storeKey)
-	var students []types.Student
+	var students []*types.AddStudentRequest
 	itr := store.Iterator(types.StudentKey, nil)
 	for ; itr.Valid(); itr.Next() {
-		var student types.Student
+		var student types.AddStudentRequest
 		k.cdc.Unmarshal(itr.Value(), &student)
+		students = append(students, &student)
 		fmt.Println("Students are:", student)
 	}
 	return students
 }
 
 // -------------------->> GET STUDENT <<-----------------------------
-func (k Keeper) Getstudent(ctx sdk.Context, Address string) (req types.Student, err error) {
+func (k Keeper) Getstdent(ctx sdk.Context, Address string) (req types.AddStudentRequest, err error) {
 	if _, err := sdk.AccAddressFromBech32(Address); err != nil {
 		panic(err)
 	}
@@ -167,16 +168,19 @@ func (k Keeper) GetAcceptLeaves(ctx sdk.Context, getleaves *types.GetLeaveApprov
 }
 
 // -------------------------------->> GET ADMIN <<---------------------------------------
-func (k Keeper) GetAdminn(ctx sdk.Context, Address string) []byte {
+func (k Keeper) GetAdminn(ctx sdk.Context, Address string) (req types.RegisterAdminRequest, err error) {
 	if _, err := sdk.AccAddressFromBech32(Address); err != nil {
 		panic(err)
 	}
 	store := ctx.KVStore(k.storeKey)
+	admin := store.Get(types.AdminstoreKey(Address))
+	if admin == nil {
+		panic("no admin")
+	}
+	k.cdc.MustUnmarshal(admin, &req)
+	fmt.Println(req)
+	return req, err
 
-	// ans := store.Get(types.AdminKey)
-	// var admin types.Admin
-	// k.cdc.Unmarshal(ans, &admin)
-	return store.Get(types.AdminstoreKey(Address))
 }
 
 // func (k Keeper) CheckLeaveStatus(ctx sdk.Context, studentAddress string) (types.Leave, error) {
