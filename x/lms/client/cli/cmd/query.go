@@ -49,6 +49,8 @@ func GetQueryCmd() *cobra.Command {
 		GetStudentCmd(),
 		GetRegisterAdminCmd(),
 		GetStudentscmd(),
+		GetLeaveCmd(),
+		GetAcceptLeaveCmd(),
 	)
 	return studentqueryCmd
 }
@@ -57,8 +59,8 @@ func GetQueryCmd() *cobra.Command {
 
 func GetStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   " GetStudent",
-		Short: "A brief description of your command",
+		Use:   "GetStudent",
+		Short: "Id | Address",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,
 
@@ -68,13 +70,14 @@ func GetStudentCmd() *cobra.Command {
 				panic(err)
 			}
 			student := types.GetstudentRequest{
-				Id:      args[0],
-				Address: args[1],
+				//Id:      args[0],
+				Address: args[0],
 			}
 
 			//queryClient := types.NewGetStudentRequest(Id, Address)
 
 			queryClient := types.NewQueryClient(clientCtx)
+
 			res, err := queryClient.GetStudent(cmd.Context(), &student)
 			if err != nil {
 				panic(err)
@@ -91,7 +94,7 @@ func GetStudentCmd() *cobra.Command {
 func GetStudentscmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "Getstudents",
-		Short: "A brief description of your command",
+		Short: "This is about the GetAllStudents ",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,
 
@@ -116,7 +119,7 @@ func GetStudentscmd() *cobra.Command {
 func GetRegisterAdminCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "GetRegisterAdmin",
-		Short: "name",
+		Short: "Address",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,
 
@@ -127,13 +130,16 @@ func GetRegisterAdminCmd() *cobra.Command {
 				panic(err)
 			}
 			Admin := types.GetRegisterAdminRequest{
-				Name: args[0],
+				Address: args[0],
 			}
 			queryClient := types.NewQueryClient(clientCtx)
+
 			res, err := queryClient.GetAdmin(cmd.Context(), &Admin)
 			if err != nil {
+
 				panic(err)
 			}
+
 			return clientCtx.PrintProto(res)
 		},
 	}
