@@ -146,14 +146,18 @@ func (k Keeper) Getstdent(ctx sdk.Context, Address string) (req types.AddStudent
 
 //<------------------GET LEAVE REQUESTS------------------------------->//
 
-func (k Keeper) GetLeaveRqst(ctx sdk.Context, getLeaves *types.GetLeaveRequest) {
+func (k Keeper) GetLeaveRqst(ctx sdk.Context, getLeaves *types.GetLeaveRequest) []*types.ApplyLeaveRequest {
 	store := ctx.KVStore(k.storeKey)
-	var leaves types.ApplyLeaveRequest
-	itr := store.Iterator(types.AppliedLeavesKey, nil)
+	var leaves []*types.ApplyLeaveRequest
+	itr := sdk.KVStorePrefixIterator(store, types.LeaveKey)
+	// itr := store.Iterator(types.AppliedLeavesKey, nil)
 	for ; itr.Valid(); itr.Next() {
-		k.cdc.Unmarshal(itr.Value(), &leaves)
+		var leave types.ApplyLeaveRequest
+		k.cdc.Unmarshal(itr.Value(), &leave)
+		leaves = append(leaves, &leave)
 		fmt.Println(leaves)
 	}
+	return leaves
 }
 
 // -------------------------->> GET APPROVE LEAVES <<-------------------------------

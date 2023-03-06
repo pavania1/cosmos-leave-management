@@ -47,8 +47,10 @@ func (k Keeper) GetLeave(goCtx context.Context, req *types.GetLeaveRequest) (*ty
 		return nil, sdkerrors.ErrInvalidRequest.Wrap("Empty request")
 	}
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	k.GetLeaveRqst(ctx, req)
-	return &types.GetLeaveRequestResponse{}, nil
+	res := k.GetLeaveRqst(ctx, req)
+	return &types.GetLeaveRequestResponse{
+		Leaverequest: res,
+	}, nil
 }
 
 // Get Accept Leave

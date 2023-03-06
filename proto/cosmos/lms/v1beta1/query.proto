@@ -35,13 +35,13 @@ message GetLeaveReq{
 
 }
 message GetLeaveRequestResponse{
-    repeated GetLeaveRequest leaverequest=1;
+    repeated ApplyLeaveRequest leaverequest=1;
 }
  message GetLeaveApproveRequest{
 
 }
 message GetLeaveApproveResponse{
-    repeated GetLeaveRequest Getleaverequest=1;
+    repeated ApplyLeaveRequest Getleaverequest=1;
 }
 message GetRegisterAdminRequest{
     string Address=1;
