@@ -59,8 +59,11 @@ func (k Keeper) GetAcceptLeave(goCtx context.Context, req *types.GetLeaveApprove
 		return nil, sdkerrors.ErrInvalidRequest.Wrap("empty request")
 	}
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	k.GetAcceptLeaves(ctx, req)
-	return &types.GetLeaveApproveResponse{}, nil
+	//k.GetAcceptLeaves(ctx, req)
+	res := k.GetAcceptLeaves(ctx, req)
+	return &types.GetLeaveApproveResponse{
+		Getleaverequest: res,
+	}, nil
 }
 
 // Get All Students

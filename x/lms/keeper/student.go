@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
@@ -93,7 +94,7 @@ func (k Keeper) AcceptLeave(ctx sdk.Context, req *types.AcceptLeaveRequest) erro
 	if err != nil {
 		return err
 	} else {
-		store.Set(types.LeaveKey, bz)
+		store.Set(types.AcceptedLeavesStoreKey(req.Admin, string(req.LeaveId)), bz)
 	}
 	return nil
 }
@@ -102,13 +103,26 @@ func (k Keeper) AcceptLeave(ctx sdk.Context, req *types.AcceptLeaveRequest) erro
 func (k Keeper) ApplyLeave(ctx sdk.Context, req *types.ApplyLeaveRequest) error {
 	if _, err := sdk.AccAddressFromBech32(req.Address); err != nil {
 		panic(fmt.Errorf("invalid  authority address: %w", err))
-	}
-	store := ctx.KVStore(k.storeKey)
-	bz, err := k.cdc.Marshal(req)
-	if err != nil {
-		return err
 	} else {
-		store.Set(types.LeaveKey, bz)
+		store := ctx.KVStore(k.storeKey)
+		bz, err := k.cdc.Marshal(req)
+		if err != nil {
+			return err
+		}
+		addr := types.LeavesCounterKey(req.Address)
+		counter := store.Get(addr)
+		if counter == nil {
+			store.Set(addr, []byte("1"))
+		} else {
+			c, err := strconv.Atoi(string(counter))
+			if err != nil {
+				panic(err)
+			}
+			c = c + 1
+			store.Set(addr, []byte(fmt.Sprint(c)))
+		}
+		counter = store.Get(addr)
+		store.Set(types.AppliedLeavesStoreKey(req.LeaveId, string(counter)), bz)
 	}
 	return nil
 }
@@ -117,7 +131,7 @@ func (k Keeper) ApplyLeave(ctx sdk.Context, req *types.ApplyLeaveRequest) error 
 func (k Keeper) Getstudents(ctx sdk.Context, getstudents *types.GetstudentsRequest) []*types.AddStudentRequest {
 	store := ctx.KVStore(k.storeKey)
 	var students []*types.AddStudentRequest
-	itr := store.Iterator(types.StudentKey, nil)
+	itr := sdk.KVStorePrefixIterator(store, types.StudentKey)
 	for ; itr.Valid(); itr.Next() {
 		var student types.AddStudentRequest
 		k.cdc.Unmarshal(itr.Value(), &student)
@@ -149,7 +163,7 @@ func (k Keeper) Getstdent(ctx sdk.Context, Address string) (req types.AddStudent
 func (k Keeper) GetLeaveRqst(ctx sdk.Context, getLeaves *types.GetLeaveRequest) []*types.ApplyLeaveRequest {
 	store := ctx.KVStore(k.storeKey)
 	var leaves []*types.ApplyLeaveRequest
-	itr := sdk.KVStorePrefixIterator(store, types.LeaveKey)
+	itr := sdk.KVStorePrefixIterator(store, types.AppliedLeavesKey)
 	// itr := store.Iterator(types.AppliedLeavesKey, nil)
 	for ; itr.Valid(); itr.Next() {
 		var leave types.ApplyLeaveRequest
@@ -161,14 +175,18 @@ func (k Keeper) GetLeaveRqst(ctx sdk.Context, getLeaves *types.GetLeaveRequest) 
 }
 
 // -------------------------->> GET APPROVE LEAVES <<-------------------------------
-func (k Keeper) GetAcceptLeaves(ctx sdk.Context, getleaves *types.GetLeaveApproveRequest) {
+func (k Keeper) GetAcceptLeaves(ctx sdk.Context, getleaves *types.GetLeaveApproveRequest) []*types.AcceptLeaveRequest {
 	store := ctx.KVStore(k.storeKey)
-	var approve types.AcceptLeaveRequest
-	itr := store.Iterator(types.AcceptedLeavesKey, nil)
+	var approve []*types.AcceptLeaveRequest
+	itr := sdk.KVStoreReversePrefixIterator(store, types.AcceptedLeavesKey)
+	//itr := store.Iterator(types.AcceptedLeavesKey, nil)
 	for ; itr.Valid(); itr.Next() {
-		k.cdc.Unmarshal(itr.Value(), &approve)
+		var approveleave types.AcceptLeaveRequest
+		k.cdc.Unmarshal(itr.Value(), &approveleave)
+		approve = append(approve, &approveleave)
 		fmt.Println(approve)
 	}
+	return approve
 }
 
 // -------------------------------->> GET ADMIN <<---------------------------------------

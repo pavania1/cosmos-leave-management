@@ -187,6 +187,16 @@ func (s *TestSuite) TestAcceptLeave() {
 		s.Require().NoError(err)
 	}
 }
+func (s *TestSuite) TestGetAcceptLeave() {
+	s.TestRegisterAdmin()
+	s.TestAddStudent()
+	s.TestLeave()
+	s.TestAcceptLeave()
+
+	res := s.stdntKeeper.GetAcceptLeaves(s.ctx, &types.GetLeaveApproveRequest{})
+	fmt.Println(res)
+
+}
 
 // func (s *TestSuite) TestAddstudent() {
 // 	except := lms.student{

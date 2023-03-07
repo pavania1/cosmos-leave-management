@@ -51,6 +51,7 @@ message ApplyLeaveRequest {
     google.protobuf.Timestamp from = 3 [(gogoproto.stdtime)=true];
     
     google.protobuf.Timestamp to = 4 [(gogoproto.stdtime)=true];
+    string leaveId=5;
 }
 
 message ApplyLeaveResponse {

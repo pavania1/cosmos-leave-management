@@ -48,7 +48,7 @@ func GetTxCmd() *cobra.Command {
 func AddStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "Addstudent",
-		Short: "admin | address | name | id)",
+		Short: "admin | address | name | id",
 		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {

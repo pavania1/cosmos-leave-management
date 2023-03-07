@@ -41,7 +41,7 @@ message GetLeaveRequestResponse{
 
 }
 message GetLeaveApproveResponse{
-    repeated ApplyLeaveRequest Getleaverequest=1;
+    repeated AcceptLeaveRequest Getleaverequest=1;
 }
 message GetRegisterAdminRequest{
     string Address=1;
