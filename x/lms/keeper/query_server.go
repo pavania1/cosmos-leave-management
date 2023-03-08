@@ -46,7 +46,7 @@ func (k Keeper) GetLeave(goCtx context.Context, req *types.GetLeaveRequest) (*ty
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	res := k.GetLeaveRqst(ctx, req)
-	panic(res)
+	// panic(res)
 	return &types.GetLeaveRequestResponse{
 		Leaverequest: res,
 	}, nil

@@ -177,7 +177,7 @@ func GetLeaveCmd() *cobra.Command {
 			if err != nil {
 				panic(err)
 			}
-			panic("called 1")
+			// panic("called 1")
 			queryClient := types.NewQueryClient(clientCtx)
 			res, err := queryClient.GetLeave(cmd.Context(), &types.GetLeaveRequest{})
 			if err != nil {

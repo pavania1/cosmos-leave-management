@@ -29,12 +29,13 @@ func NewRegisterAdminRequest(Address sdk.Address, name string) *RegisterAdminReq
 		Name:    name,
 	}
 }
-func NewApplyLeaveRequest(Address sdk.AccAddress, Reason string, From *time.Time, To *time.Time) *ApplyLeaveRequest {
+func NewApplyLeaveRequest(Address sdk.AccAddress, Reason string, From *time.Time, To *time.Time, id string) *ApplyLeaveRequest {
 	return &ApplyLeaveRequest{
 		Address: Address.String(),
 		Reason:  Reason,
 		From:    From,
 		To:      To,
+		LeaveId: id,
 	}
 }
 func NewAcceptLeaveRequest(Admin string, LeaveId uint64, Status LeaveStatus) *AcceptLeaveRequest {

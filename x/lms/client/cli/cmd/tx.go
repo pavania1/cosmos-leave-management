@@ -146,15 +146,16 @@ func ApplyLeaveCmd() *cobra.Command {
 			if err != nil {
 				panic(err)
 			}
-			dateString := "2023-02-22"
-			fromdate, _ := time.Parse("2023-02-22", dateString)
-			todate, _ := time.Parse("2023-02-22", "2023-02-24")
+			dateString := "2006-Jan-06"
+			fromdate, _ := time.Parse(dateString, args[2])
+			todate, _ := time.Parse(dateString, args[3])
 			//Address := args[0]
 			Address, _ := sdk.AccAddressFromBech32(args[0])
 			Reason := args[1]
 			From := &fromdate
 			To := &todate
-			msgClient := types.NewApplyLeaveRequest(Address, Reason, From, To)
+			LeaveId := args[4]
+			msgClient := types.NewApplyLeaveRequest(Address, Reason, From, To, LeaveId)
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
 		},
 	}

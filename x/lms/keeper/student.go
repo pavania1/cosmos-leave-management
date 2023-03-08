@@ -85,9 +85,9 @@ func (k Keeper) CheckAdminregister(ctx sdk.Context, address string) bool {
 
 // ----------------------->> ACCEPT LEAVE <<------------------------------
 func (k Keeper) AcceptLeave(ctx sdk.Context, req *types.AcceptLeaveRequest) error {
-	if _, err := sdk.AccAddressFromBech32(req.Admin); err != nil {
-		panic(fmt.Errorf("invalid  authority address: %w", err))
-	}
+	// if _, err := sdk.AccAddressFromBech32(req.Admin); err != nil {
+	// 	panic(fmt.Errorf("invalid  authority address: %w", err))
+	// }
 	store := ctx.KVStore(k.storeKey)
 	req.Status = types.LeaveStatus_STATUS_ACCEPTED
 	bz, err := k.cdc.Marshal(req)
@@ -95,6 +95,10 @@ func (k Keeper) AcceptLeave(ctx sdk.Context, req *types.AcceptLeaveRequest) erro
 		return err
 	} else {
 		store.Set(types.AcceptedLeavesStoreKey(req.Admin, fmt.Sprint(req.LeaveId)), bz)
+		r := store.Get(types.AcceptedLeavesStoreKey(req.Admin, fmt.Sprint(req.LeaveId)))
+		var res types.AcceptLeaveRequest
+		k.cdc.Unmarshal(r, &res)
+		fmt.Println(res)
 	}
 	return nil
 }
@@ -123,6 +127,12 @@ func (k Keeper) ApplyLeave(ctx sdk.Context, req *types.ApplyLeaveRequest) error 
 	}
 	counter = store.Get(addr)
 	store.Set(types.AppliedLeavesStoreKey(req.LeaveId, string(counter)), bz)
+	// r := store.Get(types.AppliedLeavesStoreKey(req.LeaveId, string(counter)))
+	// var res types.ApplyLeaveRequest
+	// k.cdc.Unmarshal(r, &res)
+	// panic(res)
+
+	// panic(leaves)
 	// }
 	return nil
 }
@@ -164,6 +174,7 @@ func (k Keeper) GetLeaveRqst(ctx sdk.Context, getLeaves *types.GetLeaveRequest) 
 	store := ctx.KVStore(k.storeKey)
 	var leaves []*types.ApplyLeaveRequest
 	itr := sdk.KVStorePrefixIterator(store, types.AppliedLeavesKey)
+	defer itr.Close()
 	// itr := store.Iterator(types.AppliedLeavesKey, nil)
 	for ; itr.Valid(); itr.Next() {
 		var leave types.ApplyLeaveRequest
@@ -171,6 +182,7 @@ func (k Keeper) GetLeaveRqst(ctx sdk.Context, getLeaves *types.GetLeaveRequest) 
 		leaves = append(leaves, &leave)
 		fmt.Println(leaves)
 	}
+	// panic(leaves)
 	return leaves
 }
 
