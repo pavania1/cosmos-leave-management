@@ -43,11 +43,10 @@ func (k Keeper) GetAdmin(goCtx context.Context, req *types.GetRegisterAdminReque
 
 // Get Leave(Apply)
 func (k Keeper) GetLeave(goCtx context.Context, req *types.GetLeaveRequest) (*types.GetLeaveRequestResponse, error) {
-	if req == nil {
-		return nil, sdkerrors.ErrInvalidRequest.Wrap("Empty request")
-	}
+
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	res := k.GetLeaveRqst(ctx, req)
+	panic(res)
 	return &types.GetLeaveRequestResponse{
 		Leaverequest: res,
 	}, nil

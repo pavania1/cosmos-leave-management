@@ -48,24 +48,25 @@ func GetTxCmd() *cobra.Command {
 func AddStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "Addstudent",
-		Short: "admin | address | name | id",
-		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
+		Short: "This command is about the Addstudent",
+		Long:  `Example:./simd tx leavemanagementsystem Addstudent cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy cosmos1jwjx39qetc5t865lhk43fxps25778ruzxffzy2 stdpavani 123 --from validator-key --chain-id testnet.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				panic(err)
 			}
-			admin := args[0]
+			//admin := args[0]
 			//address := args[1]
-			address, err := sdk.AccAddressFromBech32(args[1])
+			admin := clientCtx.GetFromAddress()
+			address, err := sdk.AccAddressFromBech32(args[0])
 			if err != nil {
 				panic(err)
 			}
 			name := args[2]
 			id := args[3]
 
-			msgClient := types.NewAddStudentRequest(admin, address, name, id)
+			msgClient := types.NewAddStudentRequest(admin.String(), address, name, id)
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgClient)
 		},
 	}
@@ -77,8 +78,8 @@ func AddStudentCmd() *cobra.Command {
 func RegisterAdminCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "RegisterAdmin",
-		Short: "Address| name",
-		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
+		Short: "This command is about the Register Admin",
+		Long:  `Example:./simd query leavemanagementsystem GetRegisterAdmin cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -105,8 +106,8 @@ func RegisterAdminCmd() *cobra.Command {
 func AcceptLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "AcceptLeave",
-		Short: "Admin | leaveId | Leavestatus",
-		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
+		Short: "This command is about AcceptLeave",
+		Long:  `./simd tx leavemanagementsystem AcceptLeave cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy 123 1 --from validator-key --chain-id testnet`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -137,8 +138,8 @@ func AcceptLeaveCmd() *cobra.Command {
 func ApplyLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "ApplyLeave",
-		Short: " Address| Reason| From| To",
-		Long:  `A longer description that spans multiple lines and likely contains examplesand usage of using your command.`,
+		Short: "This command is about ApplyLeave",
+		Long:  ` ./simd tx leavemanagementsystem ApplyLeave cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy sick 2023-02-22 2023-02-24 --from validator-key --chain-id testnet`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)

@@ -40,7 +40,7 @@ import (
 func GetQueryCmd() *cobra.Command {
 	studentqueryCmd := &cobra.Command{
 		Use:   types.ModuleName,
-		Short: "A brief description of your command",
+		Short: "This is about the Get the queries",
 		Long: `A longer description that spans multiple lines and likely contains examples
 		and usage of using your command.`,
 		RunE: client.ValidateCmd,
@@ -60,9 +60,8 @@ func GetQueryCmd() *cobra.Command {
 func GetStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "GetStudent",
-		Short: "Id | Address",
-		Long: `A longer description that spans multiple lines and likely contains examples
-		and usage of using your command.`,
+		Short: "This command is used for GetStudent",
+		Long:  `Example:./simd query leavemanagementsystem GetStudent cosmos1jwjx39qetc5t865lhk43fxps25778ruzxffzy2 123.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -95,8 +94,7 @@ func GetStudentscmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "Getstudents",
 		Short: "This is about the GetAllStudents ",
-		Long: `A longer description that spans multiple lines and likely contains examples
-		and usage of using your command.`,
+		Long:  `Example:./simd query leavemanagementsystem Getstudents.`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -119,9 +117,8 @@ func GetStudentscmd() *cobra.Command {
 func GetRegisterAdminCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "GetRegisterAdmin",
-		Short: "Address",
-		Long: `A longer description that spans multiple lines and likely contains examples
-		and usage of using your command.`,
+		Short: "This is about the Get admin by Address",
+		Long:  `Example:./simd query leavemanagementsystem GetRegisterAdmin cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -151,9 +148,8 @@ func GetRegisterAdminCmd() *cobra.Command {
 func GetAcceptLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "GetAcceptLeave",
-		Short: "A brief description of your command",
-		Long: `A longer description that spans multiple lines and likely contains examples
-		and usage of using your command.`,
+		Short: "This is about the Get AcceptLeaves",
+		Long:  `Example:./simd query leavemanagementsystem GetAcceptLeave`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
@@ -174,14 +170,14 @@ func GetAcceptLeaveCmd() *cobra.Command {
 func GetLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "GetLeave",
-		Short: "A brief description of your command",
-		Long: `A longer description that spans multiple lines and likely contains examples
-		and usage of using your command.`,
+		Short: "This command is used for Getleaves leave",
+		Long:  `Example:./simd query leavemanagementsystem GetLeave.`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
 				panic(err)
 			}
+			panic("called 1")
 			queryClient := types.NewQueryClient(clientCtx)
 			res, err := queryClient.GetLeave(cmd.Context(), &types.GetLeaveRequest{})
 			if err != nil {

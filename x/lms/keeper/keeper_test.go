@@ -155,6 +155,15 @@ func (s *TestSuite) TestLeave() {
 		From:    &fromdate,
 		To:      &todate,
 	})
+	err2 := s.stdntKeeper.ApplyLeave(s.ctx, &types.ApplyLeaveRequest{
+		Address: "456",
+		Reason:  "dadsfadsfsdaf",
+		From:    &fromdate,
+		To:      &todate,
+	})
+	fmt.Println(err2)
+	res := s.stdntKeeper.GetLeaveRqst(s.ctx, &types.GetLeaveRequest{})
+	fmt.Println(res)
 	s.Require().NoError(err)
 }
 

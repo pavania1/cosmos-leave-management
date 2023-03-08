@@ -94,36 +94,36 @@ func (k Keeper) AcceptLeave(ctx sdk.Context, req *types.AcceptLeaveRequest) erro
 	if err != nil {
 		return err
 	} else {
-		store.Set(types.AcceptedLeavesStoreKey(req.Admin, string(req.LeaveId)), bz)
+		store.Set(types.AcceptedLeavesStoreKey(req.Admin, fmt.Sprint(req.LeaveId)), bz)
 	}
 	return nil
 }
 
 // ----------------------->> APPLY LEAVE   <<-----------------------------
 func (k Keeper) ApplyLeave(ctx sdk.Context, req *types.ApplyLeaveRequest) error {
-	if _, err := sdk.AccAddressFromBech32(req.Address); err != nil {
-		panic(fmt.Errorf("invalid  authority address: %w", err))
-	} else {
-		store := ctx.KVStore(k.storeKey)
-		bz, err := k.cdc.Marshal(req)
-		if err != nil {
-			return err
-		}
-		addr := types.LeavesCounterKey(req.Address)
-		counter := store.Get(addr)
-		if counter == nil {
-			store.Set(addr, []byte("1"))
-		} else {
-			c, err := strconv.Atoi(string(counter))
-			if err != nil {
-				panic(err)
-			}
-			c = c + 1
-			store.Set(addr, []byte(fmt.Sprint(c)))
-		}
-		counter = store.Get(addr)
-		store.Set(types.AppliedLeavesStoreKey(req.LeaveId, string(counter)), bz)
+	// if _, err := sdk.AccAddressFromBech32(req.Address); err != nil {
+	// 	panic(fmt.Errorf("invalid  authority address: %w", err))
+	// } else {
+	store := ctx.KVStore(k.storeKey)
+	bz, err := k.cdc.Marshal(req)
+	if err != nil {
+		return err
 	}
+	addr := types.LeavesCounterKey(req.Address)
+	counter := store.Get(addr)
+	if counter == nil {
+		store.Set(addr, []byte("1"))
+	} else {
+		c, err := strconv.Atoi(string(counter))
+		if err != nil {
+			panic(err)
+		}
+		c = c + 1
+		store.Set(addr, []byte(fmt.Sprint(c)))
+	}
+	counter = store.Get(addr)
+	store.Set(types.AppliedLeavesStoreKey(req.LeaveId, string(counter)), bz)
+	// }
 	return nil
 }
 
