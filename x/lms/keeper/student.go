@@ -127,13 +127,6 @@ func (k Keeper) ApplyLeave(ctx sdk.Context, req *types.ApplyLeaveRequest) error 
 	}
 	counter = store.Get(addr)
 	store.Set(types.AppliedLeavesStoreKey(req.LeaveId, string(counter)), bz)
-	// r := store.Get(types.AppliedLeavesStoreKey(req.LeaveId, string(counter)))
-	// var res types.ApplyLeaveRequest
-	// k.cdc.Unmarshal(r, &res)
-	// panic(res)
-
-	// panic(leaves)
-	// }
 	return nil
 }
 
@@ -182,7 +175,6 @@ func (k Keeper) GetLeaveRqst(ctx sdk.Context, getLeaves *types.GetLeaveRequest) 
 		leaves = append(leaves, &leave)
 		fmt.Println(leaves)
 	}
-	// panic(leaves)
 	return leaves
 }
 
@@ -216,29 +208,3 @@ func (k Keeper) GetAdminn(ctx sdk.Context, Address string) (req types.RegisterAd
 	return req, err
 
 }
-
-// func (k Keeper) CheckLeaveStatus(ctx sdk.Context, studentAddress string) (types.Leave, error) {
-// 	// if _, err := sdk.AccAddressFromBech32(studentAddress); err != nil {
-// 	// 	return types.Leave{}, err
-// 	}
-
-// 	store := ctx.KVStore(k.leavestoreKey)
-// 	if store.Get(types.StudentStoreKey(studentAddress)) == nil {
-// 		return types.Leave{}, types.ErrStudentDoesNotExist
-// 	}
-
-// 	leaveId, _ := strconv.Atoi(string(store.Get(types.LeaveCounterStoreKey(studentAddress))))
-
-// 	// if a student never applied for a leave
-// 	if leaveId == 0 {
-// 		return types.Leave{}, types.ErrLeaveNeverApplied
-// 	}
-
-// 	val := store.Get(types.LeaveStoreKey(studentAddress, leaveId))
-// 	var leave *types.MsgAcceptLeaveRequest
-// 	k.cdc.Unmarshal(val, leave)
-// 	return types.Leave{
-// 		Address: leave.Admin,
-// 		Status:  (leave.Status == types.LeaveStatus_STATUS_ACCEPTED),
-// 	}, nil
-// }

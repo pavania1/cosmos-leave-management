@@ -22,21 +22,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// queryCmd represents the query command
-// var queryCmd = &cobra.Command{
-// 	Use:   "query",
-// 	Short: "A brief description of your command",
-// 	Long: `A longer description that spans multiple lines and likely contains examples
-// and usage of using your command. For example:
-
-// Cobra is a CLI library for Go that empowers applications.
-// This application is a tool to generate the needed files
-// to quickly create a Cobra application.`,
-// 	Run: func(cmd *cobra.Command, args []string) {
-// 		fmt.Println("query called")
-// 	},
-// }
-
 func GetQueryCmd() *cobra.Command {
 	studentqueryCmd := &cobra.Command{
 		Use:   types.ModuleName,
@@ -59,10 +44,10 @@ func GetQueryCmd() *cobra.Command {
 
 func GetStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "GetStudent",
-		Short: "This command is used for GetStudent",
-		Long:  `Example:./simd query leavemanagementsystem GetStudent cosmos1jwjx39qetc5t865lhk43fxps25778ruzxffzy2 123.`,
-
+		Use:     "GetStudent",
+		Short:   "This command is used for GetStudent",
+		Long:    `This command is used for Getstudent for this we use Address || Id`,
+		Example: ":./simd query leavemanagementsystem GetStudent cosmos1jwjx39qetc5t865lhk43fxps25778ruzxffzy2 123",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
@@ -92,9 +77,10 @@ func GetStudentCmd() *cobra.Command {
 // ----------------------------->> GET STUDENTS <<-----------------------------------
 func GetStudentscmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "Getstudents",
-		Short: "This is about the GetAllStudents ",
-		Long:  `Example:./simd query leavemanagementsystem Getstudents.`,
+		Use:     "Getstudents",
+		Short:   "This is about the GetAllStudents ",
+		Long:    `This command is used for Get all the students who added`,
+		Example: "./simd query leavemanagementsystem Getstudents",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -116,9 +102,10 @@ func GetStudentscmd() *cobra.Command {
 // ------------------------------>> GET REGISTER ADMIN <<-------------------------------------
 func GetRegisterAdminCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "GetRegisterAdmin",
-		Short: "This is about the Get admin by Address",
-		Long:  `Example:./simd query leavemanagementsystem GetRegisterAdmin cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy`,
+		Use:     "GetRegisterAdmin",
+		Short:   "This is about the Get admin by Address",
+		Long:    `This is about Get the regiter Admin`,
+		Example: "./simd query leavemanagementsystem GetRegisterAdmin cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -147,9 +134,10 @@ func GetRegisterAdminCmd() *cobra.Command {
 // ------------------------------->> GET ACCEPT lEAVE <<------------------------------
 func GetAcceptLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "GetAcceptLeave",
-		Short: "This is about the Get AcceptLeaves",
-		Long:  `Example:./simd query leavemanagementsystem GetAcceptLeave`,
+		Use:     "GetAcceptLeave",
+		Short:   "This is about the Get AcceptLeaves",
+		Long:    `This is used for get all the accepted leaves`,
+		Example: "./simd query leavemanagementsystem GetAcceptLeave",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
@@ -169,9 +157,10 @@ func GetAcceptLeaveCmd() *cobra.Command {
 // ---------------------------->> GET  APPLY LEAVE <<-------------------------------
 func GetLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "GetLeave",
-		Short: "This command is used for Getleaves leave",
-		Long:  `Example:./simd query leavemanagementsystem GetLeave.`,
+		Use:     "GetLeave",
+		Short:   "This command is used for Getleaves leave",
+		Long:    `This is used for get leaves`,
+		Example: "./simd query leavemanagementsystem GetLeave",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
@@ -197,13 +186,4 @@ func init() {
 	rootCmd.AddCommand(GetLeaveCmd())
 	rootCmd.AddCommand(GetAcceptLeaveCmd())
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// queryCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// queryCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

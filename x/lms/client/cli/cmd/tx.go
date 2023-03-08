@@ -47,9 +47,10 @@ func GetTxCmd() *cobra.Command {
 // -------------------->> ADD STUDENT <<-------------------------
 func AddStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "Addstudent",
-		Short: "This command is about the Addstudent",
-		Long:  `Example:./simd tx leavemanagementsystem Addstudent cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy cosmos1jwjx39qetc5t865lhk43fxps25778ruzxffzy2 stdpavani 123 --from validator-key --chain-id testnet.`,
+		Use:     "Addstudent",
+		Short:   "This command is about the Addstudent",
+		Long:    `This command is used for Add student`,
+		Example: " ./simd tx leavemanagementsystem Addstudent cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy cosmos1jwjx39qetc5t865lhk43fxps25778ruzxffzy2 stdpavani 123 --from validator-key --chain-id testnet",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -77,9 +78,10 @@ func AddStudentCmd() *cobra.Command {
 // ----------------------->> REGISTER ADMIN <<---------------------------------
 func RegisterAdminCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "RegisterAdmin",
-		Short: "This command is about the Register Admin",
-		Long:  `Example:./simd query leavemanagementsystem GetRegisterAdmin cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy`,
+		Use:     "RegisterAdmin",
+		Short:   "This command is about the Register Admin",
+		Long:    `This is used for Register Admin`,
+		Example: "./simd query leavemanagementsystem GetRegisterAdmin cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -105,9 +107,10 @@ func RegisterAdminCmd() *cobra.Command {
 // -------------------------->> ACCEPT LEAVE <<-----------------------------
 func AcceptLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "AcceptLeave",
-		Short: "This command is about AcceptLeave",
-		Long:  `./simd tx leavemanagementsystem AcceptLeave cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy 123 1 --from validator-key --chain-id testnet`,
+		Use:     "AcceptLeave",
+		Short:   "This command is about AcceptLeave",
+		Long:    `This command is used for Accept leave`,
+		Example: "./simd tx leavemanagementsystem AcceptLeave cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy 123 1 --from validator-key --chain-id testnet",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -137,9 +140,10 @@ func AcceptLeaveCmd() *cobra.Command {
 // ----------------------------->> APPLY LEAVE <<---------------------------------------
 func ApplyLeaveCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "ApplyLeave",
-		Short: "This command is about ApplyLeave",
-		Long:  ` ./simd tx leavemanagementsystem ApplyLeave cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy sick 2023-02-22 2023-02-24 --from validator-key --chain-id testnet`,
+		Use:     "ApplyLeave",
+		Short:   "This command is about ApplyLeave",
+		Long:    ` This command is about ApplyLeave`,
+		Example: "./simd tx leavemanagementsystem ApplyLeave cosmos1wlqey0t8d95u5v9xegyhvnnup2vcdq82fmx2gy sick 2023-02-22 2023-02-24 --from validator-key --chain-id testnet",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -170,13 +174,4 @@ func init() {
 	rootCmd.AddCommand(AcceptLeaveCmd())
 	rootCmd.AddCommand(ApplyLeaveCmd())
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// txCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// txCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
