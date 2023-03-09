@@ -61,10 +61,11 @@ func (k Keeper) AdminRegister(ctx sdk.Context, req *types.RegisterAdminRequest) 
 	bz, err := k.cdc.Marshal(req)
 	if err != nil {
 		return err
-	} else {
-		// sdkaddress := sdk.AccAddress(req.Address).String()
-		store.Set(types.AdminstoreKey(req.Address), bz)
 	}
+
+	// sdkaddress := sdk.AccAddress(req.Address).String()
+	key := types.AdminstoreKey(req.Address)
+	store.Set(key, bz)
 	return nil
 }
 
@@ -142,6 +143,7 @@ func (k Keeper) Getstudents(ctx sdk.Context, getstudents *types.GetstudentsReque
 	store := ctx.KVStore(k.storeKey)
 	var students []*types.AddStudentRequest
 	itr := sdk.KVStorePrefixIterator(store, types.StudentKey)
+	defer itr.Close()
 	for ; itr.Valid(); itr.Next() {
 		var student types.AddStudentRequest
 		k.cdc.Unmarshal(itr.Value(), &student)
@@ -211,11 +213,45 @@ func (k Keeper) GetAdminn(ctx sdk.Context, Address string) (req types.RegisterAd
 	if admin == nil {
 		panic("no admin")
 	}
-	k.cdc.MustUnmarshal(admin, &req)
+
+	if err := k.cdc.Unmarshal(admin, &req); err != nil {
+		return req, err
+	}
+
 	fmt.Println(req)
 	return req, err
 
 }
+
+// func (k Keeper) GetAdmins(ctx sdk.Context) []*types.GetRegisterAdminRequest {
+// 	fmt.Println("step5.1")
+
+// 	store := ctx.KVStore(k.storeKey)
+// 	val := store.Get(types.AdminKey)
+// 	fmt.Println("val", val)
+
+// 	fmt.Println("step5.2", k.storeKey, store)
+
+// 	itr := sdk.KVStorePrefixIterator(store, types.AdminKey)
+// 	defer itr.Close()
+
+// 	fmt.Println("step5.3")
+
+// 	if itr == nil {
+// 		panic("prefix iterator is empty")
+// 	}
+// 	fmt.Println("step5.4")
+
+// 	for ; itr.Valid(); itr.Next() {
+// 		panic(fmt.Sprintf("asdfasdf", itr.Key()))
+// 		// panic(fmt.Sprintf("asdfasdf.value", string(prefixItr.Value())))
+// 		// prefixItr.Key()
+// 		// prefixItr.Next()
+// 	}
+
+// 	return []*types.GetRegisterAdminRequest{}
+// 	// key := types.AdminstoreKey(req.Address)
+// }
 
 // func (k Keeper) CheckLeaveStatus(ctx sdk.Context, studentAddress string) (types.Leave, error) {
 // 	// if _, err := sdk.AccAddressFromBech32(studentAddress); err != nil {

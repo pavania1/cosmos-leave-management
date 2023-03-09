@@ -126,12 +126,12 @@ func GetRegisterAdminCmd() *cobra.Command {
 			if err != nil {
 				panic(err)
 			}
-			Admin := types.GetRegisterAdminRequest{
+			Admin := &types.GetRegisterAdminRequest{
 				Address: args[0],
 			}
 			queryClient := types.NewQueryClient(clientCtx)
 
-			res, err := queryClient.GetAdmin(cmd.Context(), &Admin)
+			res, err := queryClient.GetAdmin(cmd.Context(), Admin)
 			if err != nil {
 
 				panic(err)

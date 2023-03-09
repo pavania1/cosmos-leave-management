@@ -59,7 +59,7 @@ func AddStudentCmd() *cobra.Command {
 			//admin := args[0]
 			//address := args[1]
 			admin := clientCtx.GetFromAddress()
-			address, err := sdk.AccAddressFromBech32(args[0])
+			address, err := sdk.AccAddressFromBech32(args[1])
 			if err != nil {
 				panic(err)
 			}
