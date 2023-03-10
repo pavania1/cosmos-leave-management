@@ -78,3 +78,16 @@ func (k Keeper) GetStudents(goCtx context.Context, req *types.GetstudentsRequest
 	return &res, nil
 
 }
+
+// Get Leave status
+func (k Keeper) GetLeaveStatus(goCtx context.Context, req *types.GetLeavestatusRequest) (*types.GetLeavestatusResponse, error) {
+	if req == nil {
+		return nil, sdkerrors.ErrInvalidRequest.Wrap("empty request")
+	}
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	status, _ := k.GetLeavestatus(ctx, req.Admin, req.LeaveId)
+	res := types.GetLeavestatusResponse{
+		Leaverequest: &status,
+	}
+	return &res, nil
+}

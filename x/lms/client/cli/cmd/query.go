@@ -51,6 +51,7 @@ func GetQueryCmd() *cobra.Command {
 		GetStudentscmd(),
 		GetLeaveCmd(),
 		GetAcceptLeaveCmd(),
+		GetLeavestatusCmd(),
 	)
 	return studentqueryCmd
 }
@@ -189,6 +190,32 @@ func GetLeaveCmd() *cobra.Command {
 	return cmd
 }
 
+// ------------------------------->> Get Leave status <<------------------------------------
+func GetLeavestatusCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "Leavestatus",
+		Short: "To get the Leave status",
+		Long:  "To get Leave status",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientQueryContext(cmd)
+			if err != nil {
+				panic(err)
+			}
+			getLeavestatusRequest := &types.GetLeavestatusRequest{
+				LeaveId: args[0],
+			}
+			queryClient := types.NewQueryClient(clientCtx)
+
+			res, err := queryClient.GetLeaveStatus(cmd.Context(), getLeavestatusRequest)
+			if err != nil {
+				panic(err)
+			}
+			return clientCtx.PrintProto(res)
+		},
+	}
+	flags.AddQueryFlagsToCmd(cmd)
+	return cmd
+}
 func init() {
 	//rootCmd.AddCommand(queryCmd)
 	rootCmd.AddCommand(GetStudentCmd())
@@ -196,6 +223,7 @@ func init() {
 	rootCmd.AddCommand(GetStudentscmd())
 	rootCmd.AddCommand(GetLeaveCmd())
 	rootCmd.AddCommand(GetAcceptLeaveCmd())
+	rootCmd.AddCommand(GetLeavestatusCmd())
 
 	// Here you will define your flags and configuration settings.
 

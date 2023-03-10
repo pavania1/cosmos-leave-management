@@ -222,6 +222,18 @@ func (k Keeper) GetAdminn(ctx sdk.Context, Address string) (req types.RegisterAd
 	return req, err
 
 }
+func (k Keeper) GetLeavestatus(ctx sdk.Context, Admin string, LeaveId string) (req types.AcceptLeaveRequest, err error) {
+	store := ctx.KVStore(k.storeKey)
+	leavestatus := store.Get(types.AcceptedLeavesStoreKey(Admin, LeaveId))
+	if leavestatus == nil {
+		panic("No Leaves")
+	}
+	if err := k.cdc.Unmarshal(leavestatus, &req); err != nil {
+		return req, err
+	}
+	fmt.Println(req)
+	return req, err
+}
 
 // func (k Keeper) GetAdmins(ctx sdk.Context) []*types.GetRegisterAdminRequest {
 // 	fmt.Println("step5.1")
