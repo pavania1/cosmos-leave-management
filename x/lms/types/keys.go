@@ -44,11 +44,10 @@ func AdminstoreKey(admin string) []byte {
 // --------------------------------------------->> Accept leave key <<-----------------------------------
 
 func AcceptedLeavesStoreKey(admin string, leaveId string) []byte {
-	key := make([]byte, len(AcceptedLeavesKey)+len(admin)+len(SequenceKey)+len(leaveId))
+	key := make([]byte, len(AcceptedLeavesKey)+len(admin)+len(leaveId))
 	copy(key, AcceptedLeavesKey)
 	copy(key[len(AcceptedLeavesKey):], []byte(admin))
-	copy(key[len(AcceptedLeavesKey)+len(admin):], SequenceKey)
-	copy(key[len(AcceptedLeavesKey)+len(admin)+len(SequenceKey):], []byte(leaveId))
+	copy(key[len(AcceptedLeavesKey)+len(admin):], []byte(leaveId))
 	return key
 }
 
