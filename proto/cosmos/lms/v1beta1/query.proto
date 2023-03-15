@@ -1,0 +1,85 @@
+syntax="proto3";
+package lms.v1beta1;
+import "cosmos/lms/v1beta1/tx.proto";
+import "google/api/annotations.proto" ;  
+option go_package="x/lms/types";
+message GetLeaveRequest{
+
+}
+// message GetLeaveResponse{
+//     repeated Leave leave=1;
+
+// }
+
+// message GetAdminRequest{
+
+// }
+// message GetAdminResponse{
+//      Admin admin=1;
+//      //Address address=2;
+// }
+message GetstudentsRequest{
+
+}
+message GetstudentsResponse{
+    repeated AddStudentRequest student=1;
+}
+
+message GetstudentRequest{
+    string address=1;
+}
+message GetstudentResponse{
+    AddStudentRequest student=1;
+}
+message GetLeaveReq{
+
+}
+message GetLeaveRequestResponse{
+    repeated ApplyLeaveRequest leaverequest=1;
+}
+ message GetLeaveApproveRequest{
+
+}
+message GetLeaveApproveResponse{
+    repeated AcceptLeaveRequest Getleaverequest=1;
+}
+message GetRegisterAdminRequest{
+    string Address=1;
+}
+message GetRegisterAdminResponse{
+    //repeated GetAdminRequest GetAdminrequest=1;
+    RegisterAdminRequest admin=1;
+    
+}
+message GetLeavestatusResponse{
+    AcceptLeaveRequest leaverequest=1;
+}
+message GetLeavestatusRequest{
+    string Admin=1;
+    string LeaveId=2;
+}
+service Query {
+    
+    rpc GetAdmin(GetRegisterAdminRequest)returns (GetRegisterAdminResponse){
+        option (google.api.http).get   = "/cosmos/lms/v1beta1/adminaddress";
+    };
+    // GetStudent adds new student
+    rpc GetStudents(GetstudentsRequest) returns (GetstudentsResponse){
+        option (google.api.http).get   = "/cosmos/lms/v1beta1/adminaddress";
+    };
+    rpc GetStudent(GetstudentRequest)returns(GetstudentResponse){
+        option (google.api.http).get   = "/cosmos/lms/v1beta1/studentaddress";
+    };
+    // GetLeave request a new leave
+    rpc GetLeave(GetLeaveRequest) returns (GetLeaveRequestResponse){
+        option (google.api.http).get   = "/cosmos/lms/v1beta1/studenaddress";
+    };
+    rpc GetAcceptLeave(GetLeaveApproveRequest) returns (GetLeaveApproveResponse){
+        option (google.api.http).get   = "/cosmos/lms/v1beta1/studentaddress";
+    };
+    rpc GetLeaveStatus(GetLeavestatusRequest) returns (GetLeavestatusResponse){
+        option (google.api.http).get="/cosmos/lms/v1beta1/leavegetstatus";
+    }
+    //rpc Leave(LeaveRequest) returns (LeaveResponse){};
+    // rpc GetApplyLeave(GetApplyLeaveRequest) returns (GetApplyLeaveResponse){};
+}
